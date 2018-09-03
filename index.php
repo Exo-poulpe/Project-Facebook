@@ -13,7 +13,7 @@
     <body  style="background-color: #e9ebee;">
       <div class="col border " style="background-color: #29487d;" >
         <br><br><br>
-        <div class="h4 col-1 text-white" style="left: 20%;" >
+        <div class="h4 col-1 text-white" style="left: 20%; font-family: 'Consolas' " >
           PoulpBook
         </div>
       </div>
@@ -55,7 +55,7 @@
         <br>
         <br>
         <div class="rows center-block text-center" style="background-color: #e9ebee; border-style: solid; border-color: grey">
-        <form method="post" action="PhpServer.php" enctype="multipart/form-data" id="formulaire" class="text-center col-12 border">
+        <form method="post" action="PhpServer.php" enctype="multipart/form-data" id="formulaire" class="text-center img-fluid col-12 border">
           <br>
             <textarea rows="5" cols="50" form="formulaire" name="textPost" class="img-fluid"></textarea>
             <br>

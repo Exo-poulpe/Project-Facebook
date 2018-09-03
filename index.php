@@ -11,13 +11,28 @@
       <br>
         <div class="container" >
 
+
             <div class="row" style="background-color: #29487d;">
+              
+              <br>
+              <br>
                 <div class="col-3">
-                    <img src="images/CFPT_logo.png"  alt="CFPT_logo" class="border " />
+                    <img src="images/CFPT_logo.png"  alt="CFPT_logo" />
+                    <br><br><br><br><br>
+                    <div class="h4 text-muted ">
+                      Troller Fabian
+                      Computer Scientist
+                      CFPT Informatique
+                      Rue des Poulpes 456
+                      1212 Terre
+                    </div>
                 </div>
+
                 <div class="col-9">
                 <img src="images/Code_image.jpg"  alt="Code_image" class=" img-fluid " />
                 </div>
+
+
             </div>
 
 

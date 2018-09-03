@@ -30,7 +30,7 @@
                 <div class="col-3">
                     <img src="images/CFPT_logo.png"  alt="CFPT_logo" class="img-fluid " />
                     <br><br><br><br><br>
-                    <div class="h4 text-muted ">
+                    <div class="h4 text-muted">
                       Troller Fabian
                       <br>
                       Computer Scientist

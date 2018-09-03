@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!-- style="background-color: #29487d;" bleu-->
+<!-- style="background-color: #e9ebee -->
 
 <html>
     <head>
@@ -7,29 +9,42 @@
         <link href="BootStrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="CssPhp.css" rel="stylesheet" type="text/css"/>
     </head>
-    <body  style="background-color: #e9ebee;" >
+
+    <body  style="background-color: #e9ebee;">
+      <div class="col border " style="background-color: #29487d;" >
+        <br><br><br>
+        <div class="h4 col-1 text-white" >
+          PoulpBook
+        </div>
+      </div>
       <br>
+
         <div class="container" >
 
 
-            <div class="row" style="background-color: #29487d;">
-              
+
+            <div class="row" >
+
               <br>
               <br>
                 <div class="col-3">
-                    <img src="images/CFPT_logo.png"  alt="CFPT_logo" />
+                    <img src="images/CFPT_logo.png"  alt="CFPT_logo" class="img-fluid " />
                     <br><br><br><br><br>
                     <div class="h4 text-muted ">
                       Troller Fabian
+                      <br>
                       Computer Scientist
+                      <br>
                       CFPT Informatique
+                      <br>
                       Rue des Poulpes 456
+                      <br>
                       1212 Terre
                     </div>
                 </div>
 
-                <div class="col-9">
-                <img src="images/Code_image.jpg"  alt="Code_image" class=" img-fluid " />
+                <div class="col-9" >
+                <img src="images/Code_image.jpg"  alt="Code_image" class=" img-fluid" />
                 </div>
 
 
@@ -42,7 +57,7 @@
         <div class="rows center-block text-center" style="background-color: #e9ebee; border-style: solid; border-color: grey">
         <form method="post" action="PhpServer.php" enctype="multipart/form-data" id="formulaire" class="text-center col-12 border">
           <br>
-            <textarea rows="5" cols="50" form="formulaire" name="textPost"></textarea>
+            <textarea rows="5" cols="50" form="formulaire" name="textPost" class="img-fluid"></textarea>
             <br>
             <br>
               <input type="file" accept="image/*" multiple name="filePictures[]"/>

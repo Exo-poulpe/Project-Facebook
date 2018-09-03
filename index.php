@@ -24,7 +24,7 @@
         <br>
         <br>
         <br>
-        <div class="rows center-block">
+        <div class="rows center-block text-center">
         <form method="post" action="PhpServer.php" enctype="multipart/form-data" id="formulaire" class="text-center col-7 border">
 
             <textarea rows="5" cols="50" form="formulaire" name="textPost"></textarea>

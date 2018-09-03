@@ -1,12 +1,12 @@
 <?php
 
 $textPost = $_REQUEST["textPost"];
-var_dump($_FILES);
+//var_dump($_FILES);
 
 $myFile = $_FILES["filePictures"];
 
 for ($i=0; $i < count($myFile["name"]); $i++) {
-  echo count($myFile["name"]);
+  //echo count($myFile["name"]);
   echo $myFile["name"][$i];
 }
 

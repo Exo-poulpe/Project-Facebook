@@ -13,7 +13,7 @@
     <body  style="background-color: #e9ebee;">
       <div class="col border " style="background-color: #29487d;" >
         <br><br><br>
-        <div class="h4 col-1 text-white" >
+        <div class="h4 col-1 text-white" style="left: 20%;" >
           PoulpBook
         </div>
       </div>

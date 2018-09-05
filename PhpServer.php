@@ -15,6 +15,9 @@ $myFile = $_FILES["filePictures"];
 
 /***********************************/
 
+var_dump(setMessageOnDb($_REQUEST["textPost"]));
+//echo "Message post : " . $_REQUEST["textPost"];
+
 for ($i=0; $i < count($myFile["name"]); $i++) {
 
 
@@ -34,7 +37,7 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
 
   }
 
-  var_dump(connectToDb());
+  //var_dump(getMessageFromDb(1));
 
 
 
@@ -45,7 +48,7 @@ function connectToDb()
 {
   static $dbb = null;
 
-  if ($dbb === null)
+  if ($dbb == null)
   {
     try
     {
@@ -57,17 +60,32 @@ function connectToDb()
     {
       die('Erreur : ' . $e->getMessage());
     }
-    return $dbb;
-
-
   }
+  return $dbb;
 
 }
 
 
-function getMessageFromDb()
+function getMessageFromDb($idMessage)
 {
-  
+  $connect = connectToDb();
+  //var_dump(connectToDb()); die();
+  $request = $connect->prepare("SELECT * FROM messages WHERE idMessage = :id");
+  $request->bindParam(':id',$idMessage,PDO::PARAM_INT);
+  $request->execute();
+  $resultat = $request->fetchAll(PDO::FETCH_ASSOC);
+  return $resultat;
+
+
+}
+
+function setMessageOnDb($Message)
+{
+  $connect = connectToDb();
+  $request = $connect->prepare("INSERT INTO (messages) VALUES (:msg)");
+  $request->bindParam(':msg',$Message,PDO::PARAM_STR);
+  $resultat = $request->fetchAll(PDO::FETCH_ASSOC);
+  return $resultat;
 
 
 }

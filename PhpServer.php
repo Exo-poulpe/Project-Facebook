@@ -33,6 +33,7 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
     //echo "Chemin temp : " . $myFile["tmp_name"][$i];
     //echo " ";
     $target_dir .= $myFile["name"][$i];
+    setImagesPathOnDb($target_dir);
     //echo "Chemin upload : " . $target_dir;
     //echo " ";
 
@@ -83,12 +84,24 @@ function getMessageFromDb($idMessage)
 function setMessageOnDb($Message)
 {
   $connect = connectToDb();
-  $request = $connect->prepare("INSERT INTO \`messages\` (\`message\`) VALUES (\":msg\")");
-  echo "INSERT INTO messages (message) VALUES (\"" . $Message . "\")";
-  $request->bindParam(':msg',$Message,PDO::PARAM_STR);
-  $resultat = $request->fetchAll(PDO::FETCH_ASSOC);
-  return $resultat;
+  $request = $connect->prepare("INSERT INTO messages (message) VALUES (\"" . $Message . "\")");
+  //echo "INSERT INTO messages (message) VALUES (\":msg\")";
+  $request->execute();
 
+
+  //$resultat = $request->fetchAll(PDO::FETCH_ASSOC);
+  //return $resultat;
+
+
+}
+
+function setImagesPathOnDb($PathImage)
+{
+
+  $connect = connectToDb();
+  $request = $connect->prepare("INSERT INTO images (path) VALUES (\"" . $PathImage . "\")");
+  //echo "INSERT INTO messages (message) VALUES (\":msg\")";
+  $request->execute();
 
 }
 

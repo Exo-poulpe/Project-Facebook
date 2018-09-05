@@ -13,6 +13,8 @@ DEFINE('DB_PASS','');
 
 $myFile = $_FILES["filePictures"];
 
+$idMessageForImage = 0;
+
 /***********************************/
 
 echo "Message post : " . $_REQUEST["textPost"] . "  ";
@@ -33,7 +35,7 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
     //echo "Chemin temp : " . $myFile["tmp_name"][$i];
     //echo " ";
     $target_dir .= $myFile["name"][$i];
-    setImagesPathOnDb($target_dir);
+    //setImagesPathOnDb($target_dir);
     //echo "Chemin upload : " . $target_dir;
     //echo " ";
 
@@ -85,6 +87,7 @@ function setMessageOnDb($Message)
 {
   $connect = connectToDb();
   $request = $connect->prepare("INSERT INTO messages (message) VALUES (\"" . $Message . "\")");
+  //$idMessageForImage++;
   //echo "INSERT INTO messages (message) VALUES (\":msg\")";
   $request->execute();
 
@@ -95,12 +98,13 @@ function setMessageOnDb($Message)
 
 }
 
-function setImagesPathOnDb($PathImage)
+function setImagesPathOnDb($PathImage,$idMessage)
 {
 
   $connect = connectToDb();
-  $request = $connect->prepare("INSERT INTO images (path) VALUES (\"" . $PathImage . "\")");
+  $request = $connect->prepare("INSERT INTO images (path,id_message) VALUES (\"" . $PathImage . "\",\"" . $idMessageForImage . "\")");
   //echo "INSERT INTO messages (message) VALUES (\":msg\")";
+
   $request->execute();
 
 }

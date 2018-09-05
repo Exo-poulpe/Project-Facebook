@@ -15,8 +15,9 @@ $myFile = $_FILES["filePictures"];
 
 /***********************************/
 
+echo "Message post : " . $_REQUEST["textPost"] . "  ";
 var_dump(setMessageOnDb($_REQUEST["textPost"]));
-//echo "Message post : " . $_REQUEST["textPost"];
+
 
 for ($i=0; $i < count($myFile["name"]); $i++) {
 
@@ -82,7 +83,8 @@ function getMessageFromDb($idMessage)
 function setMessageOnDb($Message)
 {
   $connect = connectToDb();
-  $request = $connect->prepare("INSERT INTO (messages) VALUES (:msg)");
+  $request = $connect->prepare("INSERT INTO \`messages\` (\`message\`) VALUES (\":msg\")");
+  echo "INSERT INTO messages (message) VALUES (\"" . $Message . "\")";
   $request->bindParam(':msg',$Message,PDO::PARAM_STR);
   $resultat = $request->fetchAll(PDO::FETCH_ASSOC);
   return $resultat;

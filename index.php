@@ -28,7 +28,7 @@
               <br>
               <br>
                 <div class="col-3">
-                    <img src="images/CFPT_logo.png"  alt="CFPT_logo" class="img-fluid " />
+                    <img src="images/CFPT_logo.png"  alt="CFPT_logo" class="img-fluid" />
                     <br><br><br><br><br>
                     <div class="h4 text-muted">
                       Troller Fabian
@@ -43,8 +43,8 @@
                     </div>
                 </div>
 
-                <div class="col-9" >
-                <img src="images/Code_image.jpg"  alt="Code_image" class=" img-fluid" />
+                <div class="col-9 " >
+                <img src="images/Code_image.jpg"  alt="Code_image" class=" img-fluid w-100 h-75" />
                 </div>
 
 

@@ -1,10 +1,13 @@
 <?php
+/**************constant*************/
 $target_dir = "C:\\Users\\Administrateur\\Documents\\Download_php\\";
 
 $textPost = $_REQUEST["textPost"];
 //var_dump($_FILES);
 
 $myFile = $_FILES["filePictures"];
+
+/***********************************/
 
 for ($i=0; $i < count($myFile["name"]); $i++) {
 
@@ -22,7 +25,7 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
     $target_dir .= $myFile["name"][$i];
     echo "Chemin upload : " . $target_dir;
     echo " ";
-    
+
   }
 
 
@@ -35,5 +38,8 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
 //echo $textPost;
 var_dump(phpinfo());
 //$filesGet = $_FILES["filePictures"]["name"];
+
+
+
 
 ?>

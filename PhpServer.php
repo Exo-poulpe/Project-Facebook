@@ -13,12 +13,14 @@ DEFINE('DB_PASS','');
 
 $myFile = $_FILES["filePictures"];
 
-$idMessageForImage = 0;
+$lastIdMessage = 1;
 
 /***********************************/
 
-echo "Message post : " . $_REQUEST["textPost"] . "  ";
-var_dump(setMessageOnDb($_REQUEST["textPost"]));
+//echo "Message post : " . $_REQUEST["textPost"] . "  ";
+
+setMessageOnDb($_REQUEST["textPost"]);
+setImagesPathOnDb($_FILES["filePictures"]["tmp_name"],$lastIdMessage);
 
 
 for ($i=0; $i < count($myFile["name"]); $i++) {
@@ -35,6 +37,7 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
     //echo "Chemin temp : " . $myFile["tmp_name"][$i];
     //echo " ";
     $target_dir .= $myFile["name"][$i];
+    setImagesPathOnDb($myFile["tmp_name"][$i],$lastIdMessage);
     //setImagesPathOnDb($target_dir);
     //echo "Chemin upload : " . $target_dir;
     //echo " ";
@@ -91,25 +94,40 @@ function setMessageOnDb($Message)
   //echo "INSERT INTO messages (message) VALUES (\":msg\")";
   $request->execute();
 
-
   //$resultat = $request->fetchAll(PDO::FETCH_ASSOC);
   //return $resultat;
 
 
 }
 
-function setImagesPathOnDb($PathImage,$idMessage)
+function setImagesPathOnDb($PathImage)
 {
 
+  //echo "Last id message : " . $idMessage;
+  $idMessage = getLastIdMessage();
   $connect = connectToDb();
-  $request = $connect->prepare("INSERT INTO images (path,id_message) VALUES (\"" . $PathImage . "\",\"" . $idMessageForImage . "\")");
-  //echo "INSERT INTO messages (message) VALUES (\":msg\")";
+  $request = $connect->prepare( "INSERT INTO images (path, id_message) VALUES ( \"{$PathImage}\" , {$idMessage} )" );
 
+  //echo "INSERT INTO images (path,id_message) VALUES ( \"$PathImage\" , $idMessage )";
+  //$request->bindParam(':pathFile',$PathImage,PDO::PARAM_STR);
+  //$request->bindParam(':lastMsg',$idMessage,PDO::PARAM_INT);
+  //$tmp = (string)$lastIdMessage
+  //$request = $connect->prepare( "INSERT INTO images (path,id_message) VALUES (\" $PathImage \", \" $tmp \")" );
+  //echo "INSERT INTO messages (message) VALUES (\":msg\")";
   $request->execute();
 
 }
 
-
+function getLastIdMessage()
+{
+  $connect = connectToDb();
+  $request = $connect->prepare( "SELECT id_message FROM messages ORDER BY id_message DESC LIMIT 1 " );
+  $request->execute();
+  $lastIdMessage = $request->fetch(PDO::FETCH_ASSOC);
+  $lastIdMessage = $lastIdMessage["id_message"];
+  //echo $lastIdMessage;
+  return $lastIdMessage;
+}
 
 //echo $textPost;
 //var_dump(phpinfo());

@@ -17,10 +17,8 @@ $lastIdMessage = 1;
 
 /***********************************/
 
-//echo "Message post : " . $_REQUEST["textPost"] . "  ";
 
 setMessageOnDb($_REQUEST["textPost"]);
-//setImagesPathOnDb($_FILES["filePictures"]["tmp_name"],$lastIdMessage);
 
 
 for ($i=0; $i < count($myFile["name"]); $i++) {
@@ -51,16 +49,16 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
 
 }
 
-function connectToDb()
+function connectToDb()  // Connection a la base de donnée
 {
   static $dbb = null;
 
-  if ($dbb == null)
+  if ($dbb == null)  // si elle est null on la créer
   {
     try
     {
       $connectionString = 'mysql:host=' . DB_HOST . ';dbname='.DB_NAME . '' ;
-      $dbb = new PDO($connectionString,DB_USER,DB_PASS);
+      $dbb = new PDO($connectionString,DB_USER,DB_PASS);  // On se connecte avec de la gestion d'erreur
       $dbb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     } catch (Exception $e)
@@ -73,68 +71,41 @@ function connectToDb()
 }
 
 
-function getMessageFromDb($idMessage)
+function getMessageFromDb($idMessage) // Recupere le message a partir de l'id
 {
   $connect = connectToDb();
-  //var_dump(connectToDb()); die();
-  $request = $connect->prepare("SELECT * FROM messages WHERE idMessage = :id");
+  $request = $connect->prepare("SELECT * FROM messages WHERE idMessage = :id"); // prepare la requete SQL
   $request->bindParam(':id',$idMessage,PDO::PARAM_INT);
   $request->execute();
   $resultat = $request->fetchAll(PDO::FETCH_ASSOC);
   return $resultat;
-
-
 }
 
-function setMessageOnDb($Message)
+function setMessageOnDb($Message) // Insere le message taper dans la base de donnée
 {
   $connect = connectToDb();
-  $request = $connect->prepare("INSERT INTO messages (message) VALUES (\"" . $Message . "\")");
-  //$idMessageForImage++;
-  //echo "INSERT INTO messages (message) VALUES (\":msg\")";
+  $request = $connect->prepare("INSERT INTO messages (message) VALUES (\"" . $Message . "\")"); // prepare la requete SQL pour envoyer le texte
   $request->execute();
-
-  //$resultat = $request->fetchAll(PDO::FETCH_ASSOC);
-  //return $resultat;
-
-
 }
 
-function setImagesPathOnDb($PathImage)
+function setImagesPathOnDb($PathImage)  // Insere dans la base de donnée le chemin de l'image
 {
 
-  //echo "Last id message : " . $idMessage;
-  $PathImage = str_replace("\\","\\\\",$PathImage);
-  $idMessage = getLastIdMessage();
+  $PathImage = str_replace("\\","\\\\",$PathImage); // Double les '\' pour que le chemin soit correct dans la requete SQL
+  $idMessage = getLastIdMessage();  // recupere le dernier idMessage pour le liés a l'image
   $connect = connectToDb();
   $request = $connect->prepare( "INSERT INTO images (path, idMessage) VALUES ( \"{$PathImage}\" , {$idMessage} )" );
-
-  //echo "INSERT INTO images (path,id_message) VALUES ( \"$PathImage\" , $idMessage )";
-  //$request->bindParam(':pathFile',$PathImage,PDO::PARAM_STR);
-  //$request->bindParam(':lastMsg',$idMessage,PDO::PARAM_INT);
-  //$tmp = (string)$lastIdMessage
-  //$request = $connect->prepare( "INSERT INTO images (path,id_message) VALUES (\" $PathImage \", \" $tmp \")" );
-  //echo "INSERT INTO messages (message) VALUES (\":msg\")";
   $request->execute();
 
 }
 
-function getLastIdMessage()
+function getLastIdMessage() // recupere le dernier idMessage du dernier message posté
 {
   $connect = connectToDb();
   $request = $connect->prepare( "SELECT * FROM `messages` ORDER BY `messages`.`idMessage` DESC Limit 1 " );
   $request->execute();
-  //$lastIdMessage = $request->fetch(PDO::FETCH_ASSOC);
-  //$lastIdMessage = $lastIdMessage["id_message"];
-  //echo $lastIdMessage;
-  //var_dump($request->fetch()["idMessage"]);
   return $request->fetch()["idMessage"];
 }
-
-//echo $textPost;
-//var_dump(phpinfo());
-//$filesGet = $_FILES["filePictures"]["name"];
-
 
 
 

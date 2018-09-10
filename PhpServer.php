@@ -38,13 +38,14 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
 
     $tmpName = $myFile["tmp_name"][$i];
     $fileName = $myFile["name"][$i]; // recupere l'extension du fichier
-    //echo checkImageExtension($fileName);
+    //checkFileType($tmpName);
+    //checkExtensionName($fileName);
     if (checkExtensionName($fileName))  // regarde si l'extension est dans la liste
     {
       if (checkFileType($tmpName))
       {
         setImagesPathOnDb($myFile["tmp_name"][$i],$lastIdMessage);
-        moveFile($tmpName);
+        //moveFile($tmpName);
       }
     }
 
@@ -107,10 +108,11 @@ function setMessageOnDb($Message) // Insere le message taper dans la base de don
 
 function setImagesPathOnDb($PathImage,$idMessage)  // Insere dans la base de donnée le chemin de l'image
 {
-
   $PathImage = str_replace("\\","\\\\",$PathImage); // Double les '\' pour que le chemin soit correct dans la requete SQL
   $connect = connectToDb();
-  $request = $connect->prepare( "INSERT INTO images (path, idMessage) VALUES ( \"{$PathImage}\" , {$idMessage} )" );
+  $request = $connect->prepare( "INSERT INTO images (path, id_message) VALUES (:PathImage,:idMessage)");
+  $request->bindParam(":PathImage",$PathImage,PDO::PARAM_STR);
+  $request->bindParam(":idMessage",$idMessage,PDO::PARAM_INT);
   $request->execute();
 
 }
@@ -127,25 +129,17 @@ function checkFileType($imageName)
 {
   //var_dump($imageName);
   $extensionimage = substr(strrchr($imageName, "."), 0);
-  $imageExtArray = [".jpeg",".png",".jpg"];
-  for ($i=0; $i < count($imageExtArray) ; $i++) {
-    //if ($extensionimage == $imageExtArray[$i])
-    //var_dump(exif_imagetype($imageName));
-
-      if (exif_imagetype($imageName) == IMAGETYPE_JPEG || exif_imagetype($imageName) == IMAGETYPE_PNG || exif_imagetype($imageName) == IMAGETYPE_BMP ) {
-
-          return true;
-      }
-
+  if (exif_imagetype($imageName) == IMAGETYPE_JPEG || exif_imagetype($imageName) == IMAGETYPE_PNG || exif_imagetype($imageName) == IMAGETYPE_BMP )
+  {
+      return true;
   }
-  echo "false";
   return false;
 }
 
 function checkExtensionName($imageName)
 {
   $extensionimage = substr(strrchr($imageName, "."), 0);
-  $imageExtArray = [".jpeg",".png",".jpg"];
+  $imageExtArray = [".jpeg",".png",".jpg",".JEPG",".PNG",".JPG"];
   for ($i=0; $i < count($imageExtArray) ; $i++) {
     if ($extensionimage == $imageExtArray[$i])
     {

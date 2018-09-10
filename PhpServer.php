@@ -104,8 +104,9 @@ function setImagesPathOnDb($PathImage)
 {
 
   //echo "Last id message : " . $idMessage;
+  $PathImage = str_replace("\\","\\\\",$PathImage);
   $idMessage = getLastIdMessage();
-  var_dump((string)$idMessage);
+  var_dump($PathImage);
   $connect = connectToDb();
   $request = $connect->prepare( "INSERT INTO images (path, idMessage) VALUES ( \"{$PathImage}\" , {$idMessage} )" );
 

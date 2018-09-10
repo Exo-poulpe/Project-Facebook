@@ -20,7 +20,7 @@ $lastIdMessage = 1;
 //echo "Message post : " . $_REQUEST["textPost"] . "  ";
 
 setMessageOnDb($_REQUEST["textPost"]);
-setImagesPathOnDb($_FILES["filePictures"]["tmp_name"],$lastIdMessage);
+//setImagesPathOnDb($_FILES["filePictures"]["tmp_name"],$lastIdMessage);
 
 
 for ($i=0; $i < count($myFile["name"]); $i++) {
@@ -106,7 +106,6 @@ function setImagesPathOnDb($PathImage)
   //echo "Last id message : " . $idMessage;
   $PathImage = str_replace("\\","\\\\",$PathImage);
   $idMessage = getLastIdMessage();
-  var_dump($PathImage);
   $connect = connectToDb();
   $request = $connect->prepare( "INSERT INTO images (path, idMessage) VALUES ( \"{$PathImage}\" , {$idMessage} )" );
 

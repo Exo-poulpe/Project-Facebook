@@ -35,7 +35,7 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
     //echo $myFile["name"][$i];
     //echo "Chemin temp : " . $myFile["tmp_name"][$i];
     //echo " ";
-    $target_dir .= $myFile["name"][$i];
+
     $tmpName = $myFile["tmp_name"][$i];
     $fileName = $myFile["name"][$i]; // recupere l'extension du fichier
     //echo checkImageExtension($fileName);
@@ -44,6 +44,7 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
       if (checkFileType($tmpName))
       {
         setImagesPathOnDb($myFile["tmp_name"][$i],$lastIdMessage);
+        moveFile($tmpName);
       }
     }
 
@@ -152,6 +153,15 @@ function checkExtensionName($imageName)
     }
   }
   return false;
+}
+
+function moveFile($tmpPath)
+{
+  $target_dir = "C:\\Users\\Administrateur\\Documents\\Download_php\\";
+  $target_dir .= substr(strrchr($tmpPath, "\\"), 1);
+  echo "Chemin temp : " . $tmpPath . "    ";
+  echo "Chemin dest : " . $target_dir . "    ";
+  move_uploaded_files($tmpPath,$target_dir);
 }
 
 

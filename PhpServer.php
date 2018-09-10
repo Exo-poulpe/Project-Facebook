@@ -15,12 +15,11 @@ DEFINE('DB_PASS','');
 
 $myFile = $_FILES["filePictures"];
 
-$lastIdMessage = 1;
 
 /***********************************/
 
 
-setMessageOnDb($_REQUEST["textPost"]);
+$lastIdMessage = setMessageOnDb($_REQUEST["textPost"]);
 
 
 for ($i=0; $i < count($myFile["name"]); $i++) {
@@ -37,10 +36,15 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
     //echo "Chemin temp : " . $myFile["tmp_name"][$i];
     //echo " ";
     $target_dir .= $myFile["name"][$i];
-    $ext = substr(strrchr($myFile["name"][$i], "."), 0); // recupere l'extension du fichier
-    if (checkImageExtension($ext))  // regarde si l'extension est dans la liste
+    $tmpName = $myFile["tmp_name"][$i];
+    $fileName = $myFile["name"][$i]; // recupere l'extension du fichier
+    //echo checkImageExtension($fileName);
+    if (checkExtensionName($fileName))  // regarde si l'extension est dans la liste
     {
-      setImagesPathOnDb($myFile["tmp_name"][$i],$lastIdMessage);
+      if (checkFileType($tmpName))
+      {
+        setImagesPathOnDb($myFile["tmp_name"][$i],$lastIdMessage);
+      }
     }
 
     //setImagesPathOnDb($target_dir);
@@ -92,14 +96,18 @@ function setMessageOnDb($Message) // Insere le message taper dans la base de don
 {
   $connect = connectToDb();
   $request = $connect->prepare("INSERT INTO messages (message) VALUES (\"" . $Message . "\")"); // prepare la requete SQL pour envoyer le texte
-  $request->execute();
+
+  if ($request->execute()) {
+    return $connect->lastInsertId();
+  }else {
+    return -1;
+  }
 }
 
-function setImagesPathOnDb($PathImage)  // Insere dans la base de donnée le chemin de l'image
+function setImagesPathOnDb($PathImage,$idMessage)  // Insere dans la base de donnée le chemin de l'image
 {
 
   $PathImage = str_replace("\\","\\\\",$PathImage); // Double les '\' pour que le chemin soit correct dans la requete SQL
-  $idMessage = getLastIdMessage();  // recupere le dernier idMessage pour le liés a l'image
   $connect = connectToDb();
   $request = $connect->prepare( "INSERT INTO images (path, idMessage) VALUES ( \"{$PathImage}\" , {$idMessage} )" );
   $request->execute();
@@ -114,8 +122,28 @@ function getLastIdMessage() // recupere le dernier idMessage du dernier message 
   return $request->fetch()["idMessage"];
 }
 
-function checkImageExtension($extensionimage)
+function checkFileType($imageName)
 {
+  //var_dump($imageName);
+  $extensionimage = substr(strrchr($imageName, "."), 0);
+  $imageExtArray = [".jpeg",".png",".jpg"];
+  for ($i=0; $i < count($imageExtArray) ; $i++) {
+    //if ($extensionimage == $imageExtArray[$i])
+    //var_dump(exif_imagetype($imageName));
+
+      if (exif_imagetype($imageName) == IMAGETYPE_JPEG || exif_imagetype($imageName) == IMAGETYPE_PNG || exif_imagetype($imageName) == IMAGETYPE_BMP ) {
+
+          return true;
+      }
+
+  }
+  echo "false";
+  return false;
+}
+
+function checkExtensionName($imageName)
+{
+  $extensionimage = substr(strrchr($imageName, "."), 0);
   $imageExtArray = [".jpeg",".png",".jpg"];
   for ($i=0; $i < count($imageExtArray) ; $i++) {
     if ($extensionimage == $imageExtArray[$i])

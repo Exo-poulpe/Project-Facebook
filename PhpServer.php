@@ -1,6 +1,8 @@
 <?php
-/**************constant*************/
+/**************Variable*************/
 $target_dir = "C:\\Users\\Administrateur\\Documents\\Download_php\\";
+
+
 
 $textPost = $_REQUEST["textPost"];
 //var_dump($_FILES);
@@ -35,7 +37,12 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
     //echo "Chemin temp : " . $myFile["tmp_name"][$i];
     //echo " ";
     $target_dir .= $myFile["name"][$i];
-    setImagesPathOnDb($myFile["tmp_name"][$i],$lastIdMessage);
+    $ext = substr(strrchr($myFile["name"][$i], "."), 0); // recupere l'extension du fichier
+    if (checkImageExtension($ext))  // regarde si l'extension est dans la liste
+    {
+      setImagesPathOnDb($myFile["tmp_name"][$i],$lastIdMessage);
+    }
+
     //setImagesPathOnDb($target_dir);
     //echo "Chemin upload : " . $target_dir;
     //echo " ";
@@ -105,6 +112,18 @@ function getLastIdMessage() // recupere le dernier idMessage du dernier message 
   $request = $connect->prepare( "SELECT * FROM `messages` ORDER BY `messages`.`idMessage` DESC Limit 1 " );
   $request->execute();
   return $request->fetch()["idMessage"];
+}
+
+function checkImageExtension($extensionimage)
+{
+  $imageExtArray = [".jpeg",".png",".jpg"];
+  for ($i=0; $i < count($imageExtArray) ; $i++) {
+    if ($extensionimage == $imageExtArray[$i])
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
 

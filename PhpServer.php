@@ -44,8 +44,9 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
     {
       if (checkFileType($tmpName))
       {
-        setImagesPathOnDb($myFile["tmp_name"][$i],$lastIdMessage);
-        //moveFile($tmpName);
+        //setImagesPathOnDb($myFile["tmp_name"][$i],$lastIdMessage);
+        setImagesPathOnDb(moveFile($tmpName,$fileName),$lastIdMessage);
+
       }
     }
 
@@ -110,7 +111,7 @@ function setImagesPathOnDb($PathImage,$idMessage)  // Insere dans la base de don
 {
   $PathImage = str_replace("\\","\\\\",$PathImage); // Double les '\' pour que le chemin soit correct dans la requete SQL
   $connect = connectToDb();
-  $request = $connect->prepare( "INSERT INTO images (path, id_message) VALUES (:PathImage,:idMessage)");
+  $request = $connect->prepare( "INSERT INTO images (path, idMessage) VALUES (:PathImage,:idMessage)");
   $request->bindParam(":PathImage",$PathImage,PDO::PARAM_STR);
   $request->bindParam(":idMessage",$idMessage,PDO::PARAM_INT);
   $request->execute();
@@ -149,13 +150,17 @@ function checkExtensionName($imageName)
   return false;
 }
 
-function moveFile($tmpPath)
+function moveFile($tmpPath,$fileName)
 {
   $target_dir = "C:\\Users\\Administrateur\\Documents\\Download_php\\";
+  $newName = $target_dir . $fileName;
   $target_dir .= substr(strrchr($tmpPath, "\\"), 1);
+  //$target_dir .= substr(strrchr(substr(strrchr($tmpPath, "."), 1), "\\"), 1) . ".png";
   echo "Chemin temp : " . $tmpPath . "    ";
-  echo "Chemin dest : " . $target_dir . "    ";
-  move_uploaded_files($tmpPath,$target_dir);
+  echo "Chemin dest : " . $newName . "    ";
+  move_uploaded_file($tmpPath,$target_dir);
+  rename($target_dir,$newName);
+  return $newName;
 }
 
 

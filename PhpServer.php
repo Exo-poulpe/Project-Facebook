@@ -3,8 +3,13 @@
 session_start();
 if (!isset($_SESSION["image"])) {
   $_SESSION["image"] = [];
+
+}
+if (!isset($_SESSION["message"])) {
+  $_SESSION["message"] = [];
 }
 $listImage = $_SESSION["image"];
+$listMessage = $_SESSION["message"];
 $target_dir = "./images/uploads/";
 
 
@@ -53,7 +58,10 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
 
         setImagesPathOnDb(moveFile($tmpName,$fileName),$lastIdMessage);
         $listImage = AddPathToList($listImage,moveFile($tmpName,$fileName));
+        $listMessage = AddMessageToList($listMessage,$textPost);
         $_SESSION["image"] = $listImage;
+        var_dump($listMessage);
+        $_SESSION["message"] = $listMessage;
 
 
       }
@@ -204,8 +212,15 @@ function AddPathToList($listOfImage,$Path)
   array_push($listOfImage,$Path);
   return $listOfImage;
 }
-//var_dump($_SESSION["image"]);
 
+function AddMessageToList($listMessage,$message)
+{
+  array_push($listMessage,$message);
+  return $listMessage;
+}
+
+//var_dump($_SESSION["image"]);
+//session_destroy();
 header('Location: index.php');
 
 ?>

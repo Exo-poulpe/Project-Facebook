@@ -45,7 +45,9 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
       if (checkFileType($tmpName))
       {
         //setImagesPathOnDb($myFile["tmp_name"][$i],$lastIdMessage);
+
         setImagesPathOnDb(moveFile($tmpName,$fileName),$lastIdMessage);
+        moveFile($tmpName,$fileName);
 
       }
     }
@@ -158,11 +160,24 @@ function moveFile($tmpPath,$fileName)
   //$target_dir .= substr(strrchr(substr(strrchr($tmpPath, "."), 1), "\\"), 1) . ".png";
   echo "Chemin temp : " . $tmpPath . "    ";
   echo "Chemin dest : " . $newName . "    ";
-  move_uploaded_file($tmpPath,$target_dir);
-  rename($target_dir,$newName);
+  ResizeImage($tmpPath,$newName);
   return $newName;
 }
 
 
+function ResizeImage($tmpFileName,$target_dir)
+{
+  $imageSource = imagecreatefromstring(file_get_contents($tmpFileName));
+  $ratio = 1200/imagesx($imageSource);
+  $width = imagesx($imageSource)*$ratio;
+  $heigth = imagesy($imageSource)*$ratio;
+  $imageDest = imagecreatetruecolor($width,$heigth);
+  imagecopyresampled($imageDest,$imageSource,0,0,0,0,$width,$heigth,imagesx($imageSource),imagesy($imageSource));
+  imagedestroy($imageSource);
+  imagepng($imageDest,$target_dir);
+}
+
+
+header('Location: index.php');
 
 ?>

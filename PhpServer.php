@@ -1,6 +1,11 @@
 <?php
 /**************Variable*************/
-$target_dir = "C:\\Users\\Administrateur\\Documents\\Download_php\\";
+session_start();
+if (!isset($_SESSION["image"])) {
+  $_SESSION["image"] = [];
+}
+$listImage = $_SESSION["image"];
+$target_dir = "./images/uploads/";
 
 
 
@@ -47,7 +52,9 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
         //setImagesPathOnDb($myFile["tmp_name"][$i],$lastIdMessage);
 
         setImagesPathOnDb(moveFile($tmpName,$fileName),$lastIdMessage);
-        moveFile($tmpName,$fileName);
+        $listImage = AddPathToList($listImage,moveFile($tmpName,$fileName));
+        $_SESSION["image"] = $listImage;
+
 
       }
     }
@@ -154,12 +161,10 @@ function checkExtensionName($imageName)
 
 function moveFile($tmpPath,$fileName)
 {
-  $target_dir = "C:\\Users\\Administrateur\\Documents\\Download_php\\";
+  $target_dir = "./images/uploads/";
   $newName = $target_dir . $fileName;
   $target_dir .= substr(strrchr($tmpPath, "\\"), 1);
   //$target_dir .= substr(strrchr(substr(strrchr($tmpPath, "."), 1), "\\"), 1) . ".png";
-  echo "Chemin temp : " . $tmpPath . "    ";
-  echo "Chemin dest : " . $newName . "    ";
   ResizeImage($tmpPath,$newName);
   return $newName;
 }
@@ -194,6 +199,12 @@ function ResizeImage($tmpFileName,$target_dir)
 
 }
 
+function AddPathToList($listOfImage,$Path)
+{
+  array_push($listOfImage,$Path);
+  return $listOfImage;
+}
+//var_dump($_SESSION["image"]);
 
 header('Location: index.php');
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- style="background-color: #29487d;" bleu-->
 <!-- style="background-color: #e9ebee -->
-
+<?php session_start();?>
 <html>
     <head>
         <meta charset="utf-8">
@@ -66,10 +66,18 @@
               <br>
               <input type="submit" name="btnEnvoyer" value="Choisir un fichier" class="btn btn-outline-secondary" />
         </form>
-      </div>
 
 
       </div>
+    </div>
+
+    <div class="container">
+      <?php for ($i=0; $i < count($_SESSION["image"]); $i++) { ?>
+        <div class="rows center-block text-center border border-dark bg-white mt-5">
+       <?php print("<img src=\"{$_SESSION["image"][$i]}\" alt=\"error\" class=\"col-4 img-fluid\" >"); ?>
+        </div>
+     <?php } ?>
+   </div>
 
 
     </body>

@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="col-9 " >
-                <img src="images/Code_image.jpg"  alt="Code_image" class=" img-fluid w-100 h-75" />
+                <img src="images/Code_image.jpg"  alt="Code_image" class=" img-fluid w-75  " />
                 </div>
 
 

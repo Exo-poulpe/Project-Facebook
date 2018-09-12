@@ -174,7 +174,24 @@ function ResizeImage($tmpFileName,$target_dir)
   $imageDest = imagecreatetruecolor($width,$heigth);
   imagecopyresampled($imageDest,$imageSource,0,0,0,0,$width,$heigth,imagesx($imageSource),imagesy($imageSource));
   imagedestroy($imageSource);
-  imagepng($imageDest,$target_dir);
+  switch (strtolower(substr(strrchr($target_dir, "."), 1))) {
+    case 'png':
+      imagepng($imageDest,$target_dir);
+    break;
+    case 'jpeg':
+      imagejpeg($imageDest,$target_dir);
+    break;
+    case 'jpg':
+      imagejpeg($imageDest,$target_dir);
+    break;
+    case 'bmp':
+      imagewbmp($imageDest,$target_dir);
+    break;
+    default:
+      echo "Error";
+      break;
+  }
+
 }
 
 

@@ -54,10 +54,11 @@
         <br>
         <br>
         <br>
-        <div class="rows center-block text-center" style="background-color: #e9ebee; border-style: solid; border-color: grey">
+        <!--Formulaire-->
+        <div class="rows center-block text-center border border-dark bg-white" >
         <form method="post" action="PhpServer.php" enctype="multipart/form-data" id="formulaire" class="text-center img-fluid col-12 border">
           <br>
-            <textarea rows="5" cols="50" form="formulaire" name="textPost" class="img-fluid"></textarea>
+            <textarea rows="5" cols="100" form="formulaire" name="textPost" class="img-fluid form-control"></textarea>
             <br>
             <br>
               <input type="file" accept="image/*" multiple name="filePictures[]"/>
@@ -66,6 +67,8 @@
               <input type="submit" name="btnEnvoyer" value="Choisir un fichier" class="btn btn-outline-secondary" />
         </form>
       </div>
+
+
       </div>
 
 

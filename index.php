@@ -12,6 +12,7 @@
 
     <body  style="background-color: #e9ebee;">
       <div class="col border " style="background-color: #29487d;" >
+        <form class="col" action="SessionClose.php"><input type="submit" id="Deconnect" value="Deconnexion" class="btn-danger " style="float: right;" /></form>
         <br><br><br>
         <div class="h4 col-1 text-white" style="left: 20%; font-family: 'Consolas' " >
           PoulpBook
@@ -72,7 +73,7 @@
     </div>
 
     <div class="container">
-      <?php for ($i=count($_SESSION["image"])-1; $i > 0 ; $i--) { ?>
+      <?php for ($i=count($_SESSION["image"]); $i > 0 ; $i--) { ?>
         <div class="rows center-block text-center border border-dark bg-white mt-5">
           <?php print("<p>\"{$_SESSION["message"][$i]}\"</p>"); ?>
        <?php print("<img src=\"{$_SESSION["image"][$i]}\" alt=\"error\" class=\"col-4 img-fluid\" >"); ?>

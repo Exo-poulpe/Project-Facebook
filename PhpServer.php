@@ -46,11 +46,8 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
         //setImagesPathOnDb($myFile["tmp_name"][$i],$lastIdMessage);
 
         setImagesPathOnDb(moveFile($tmpName,$fileName),$lastIdMessage);
-        $listImage = AddPathToList($listImage,moveFile($tmpName,$fileName));
-        $listMessage = AddMessageToList($listMessage,$textPost);
-        $_SESSION["image"] = $listImage;
-        //var_dump($listMessage);
-        $_SESSION["message"] = $listMessage;
+        //$listImage = AddPathToList($listImage,moveFile($tmpName,$fileName));
+        //$listMessage = AddMessageToList($listMessage,$textPost);
 
 
       }

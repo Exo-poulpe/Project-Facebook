@@ -98,7 +98,8 @@ function checkExtensionName($imageName)
 function moveFile($tmpPath,$fileName)
 {
   $target_dir = "./images/uploads/";
-  $UUID = uniqid();
+  $UUID = uniqid('',true);
+  echo $UUID;
   $newName = $target_dir . $UUID . "_" . $fileName ;
   $target_dir .= substr(strrchr($tmpPath, "\\"), 1);
   //$target_dir .= substr(strrchr(substr(strrchr($tmpPath, "."), 1), "\\"), 1) . ".png";

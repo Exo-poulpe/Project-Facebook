@@ -12,7 +12,6 @@
 
     <body  style="background-color: #e9ebee;">
       <div class="col border " style="background-color: #29487d;" >
-        <form class="col" action=""><input type="submit" id="Deconnect" value="Deconnexion" class="btn-danger " style="float: right;" /></form>
         <br><br><br>
         <div class="h4 col-1 text-white" style="left: 20%; font-family: 'Consolas' " >
           PoulpBook
@@ -85,11 +84,11 @@
           <?php print("<p>{$row["message"]}</p>");
                 $listImages = getImagesByMessageId($row["idMessage"]);
 
-                foreach ($listImages as $rowImage) {
-
-                    print("<img src=\"{$rowImage['path']}\" alt=\"error\" class=\"col-4 img-fluid\" style=\"margin-bottom: 15px;\" >"); ?>
+                foreach ($listImages as $rowImage) { ?>
+                  <?php  print("<img src=\"{$rowImage['path']}\" alt=\"error\" class=\"col-4 img-fluid\" style=\"margin-bottom: 15px;margin-top: 5px;\" >");
+                }?>
         </div>
-     <?php }  } ?>
+     <?php  } ?>
    </div>
 
 

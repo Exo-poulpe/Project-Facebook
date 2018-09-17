@@ -1,7 +1,7 @@
+<?php include 'DbFunction.php';?>
 <!DOCTYPE html>
 <!-- style="background-color: #29487d;" bleu-->
 <!-- style="background-color: #e9ebee -->
-<?php session_start();?>
 <html>
     <head>
         <meta charset="utf-8">
@@ -74,15 +74,22 @@
 
     <div class="container">
       <?php
-      //SELECT idMessage from messages WHERE 1 
-      for ($i=0; $i < count($_SESSION["image"]); $i++) {
+      $listMessages = getMessagesFromDb();
+      //SELECT idMessage from messages WHERE 1
+      //for ($i=0; $i < count($listMessages); $i++) {
+      foreach ($listMessages as $row) {
+        // code...
         ?>
         <div class="rows center-block text-center border border-dark bg-white mt-5">
           <input type="submit" class="btn" style="background:url('.\\images\\Trash.png');width: 50px;height:50px;margin-left: 95%;" value=""/>
-          <?php print("<p>\"{$_SESSION["message"][$i]}\"</p>"); ?>
-       <?php print("<img src=\"{$_SESSION["image"][$i]}\" alt=\"error\" class=\"col-4 img-fluid\" >"); ?>
+          <?php print("<p>{$row["message"]}</p>");
+                $listImages = getImagesByMessageId($row["idMessage"]);
+
+                foreach ($listImages as $rowImage) {
+
+                    print("<img src=\"{$rowImage['path']}\" alt=\"error\" class=\"col-4 img-fluid\" style=\"margin-bottom: 15px;\" >"); ?>
         </div>
-     <?php } ?>
+     <?php }  } ?>
    </div>
 
 

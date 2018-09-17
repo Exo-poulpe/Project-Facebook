@@ -75,6 +75,7 @@
     <div class="container">
       <?php for ($i=0; $i < count($_SESSION["image"]); $i++) { ?>
         <div class="rows center-block text-center border border-dark bg-white mt-5">
+          <input type="submit" class="btn" style="background:url('.\\images\\Trash.png');width: 50px;height:50px;margin-left: 95%;" value=""/>
           <?php print("<p>\"{$_SESSION["message"][$i]}\"</p>"); ?>
        <?php print("<img src=\"{$_SESSION["image"][$i]}\" alt=\"error\" class=\"col-4 img-fluid\" >"); ?>
         </div>

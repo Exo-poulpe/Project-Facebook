@@ -126,6 +126,7 @@ function setMessageOnDb($Message) // Insere le message taper dans la base de don
 
 function setImagesPathOnDb($PathImage,$idMessage)  // Insere dans la base de donnée le chemin de l'image
 {
+  echo $PathImage;
   $PathImage = str_replace("\\","\\\\",$PathImage); // Double les '\' pour que le chemin soit correct dans la requete SQL
   $connect = connectToDb();
   $request = $connect->prepare( "INSERT INTO images (path, idMessage) VALUES (:PathImage,:idMessage)");
@@ -187,6 +188,7 @@ function ResizeImage($tmpFileName,$target_dir)
   $imageDest = imagecreatetruecolor($width,$heigth);
   imagecopyresampled($imageDest,$imageSource,0,0,0,0,$width,$heigth,imagesx($imageSource),imagesy($imageSource));
   imagedestroy($imageSource);
+  echo $tmpFileName . "  // " . $target_dir;
   switch (strtolower(substr(strrchr($target_dir, "."), 1))) {
     case 'png':
       imagepng($imageDest,$target_dir);

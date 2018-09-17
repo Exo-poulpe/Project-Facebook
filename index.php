@@ -80,15 +80,15 @@
         // code...
         ?>
         <div class="rows center-block text-center border border-dark bg-white mt-5">
-          <input type="submit" class="btn" style="background:url('.\\images\\Trash.png');width: 50px;height:50px;margin-left: 95%;" value=""/>
-          <?php print("<p>{$row["message"]}</p>");
+          <form action="DeleteImages.php?id=" . $row['idMessage'] method="get"><input type="submit" class="btn" style="background:url('.\\images\\Trash.png');width: 50px;height:50px;margin-left: 95%;" value=""/></form>
+          <?php print("<p id=$row['idMessage']>{$row["message"]}</p>");
                 $listImages = getImagesByMessageId($row["idMessage"]);
 
                 foreach ($listImages as $rowImage) { ?>
                   <?php  print("<img src=\"{$rowImage['path']}\" alt=\"error\" class=\"col-4 img-fluid\" style=\"margin-bottom: 15px;margin-top: 5px;\" >");
                 }?>
         </div>
-     <?php  } ?>
+     <?php } ?>
    </div>
 
 

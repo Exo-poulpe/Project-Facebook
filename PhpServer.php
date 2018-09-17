@@ -60,7 +60,7 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
         $listImage = AddPathToList($listImage,moveFile($tmpName,$fileName));
         $listMessage = AddMessageToList($listMessage,$textPost);
         $_SESSION["image"] = $listImage;
-        var_dump($listMessage);
+        //var_dump($listMessage);
         $_SESSION["message"] = $listMessage;
 
 
@@ -112,6 +112,17 @@ function getMessageFromDb($idMessage) // Recupere le message a partir de l'id
   return $resultat;
 }
 
+
+function getImagesPathFromDb($idImage) // Recupere le message a partir de l'id
+{
+  $connect = connectToDb();
+  $request = $connect->prepare("SELECT path from images WHERE idMessage = :id"); // prepare la requete SQL
+  $request->bindParam(':id',$idImage,PDO::PARAM_INT);
+  $request->execute();
+  $resultat = $request->fetchAll(PDO::FETCH_ASSOC);
+  return $resultat;
+}
+
 function setMessageOnDb($Message) // Insere le message taper dans la base de donnée
 {
   $connect = connectToDb();
@@ -126,7 +137,6 @@ function setMessageOnDb($Message) // Insere le message taper dans la base de don
 
 function setImagesPathOnDb($PathImage,$idMessage)  // Insere dans la base de donnée le chemin de l'image
 {
-  echo $PathImage;
   $PathImage = str_replace("\\","\\\\",$PathImage); // Double les '\' pour que le chemin soit correct dans la requete SQL
   $connect = connectToDb();
   $request = $connect->prepare( "INSERT INTO images (path, idMessage) VALUES (:PathImage,:idMessage)");
@@ -171,9 +181,11 @@ function checkExtensionName($imageName)
 function moveFile($tmpPath,$fileName)
 {
   $target_dir = "./images/uploads/";
-  $newName = $target_dir . $fileName;
+  $UUID = uniqid();
+  $newName = $target_dir . $UUID . "_" . $fileName ;
   $target_dir .= substr(strrchr($tmpPath, "\\"), 1);
   //$target_dir .= substr(strrchr(substr(strrchr($tmpPath, "."), 1), "\\"), 1) . ".png";
+  echo $newName;
   ResizeImage($tmpPath,$newName);
   return $newName;
 }
@@ -188,7 +200,6 @@ function ResizeImage($tmpFileName,$target_dir)
   $imageDest = imagecreatetruecolor($width,$heigth);
   imagecopyresampled($imageDest,$imageSource,0,0,0,0,$width,$heigth,imagesx($imageSource),imagesy($imageSource));
   imagedestroy($imageSource);
-  echo $tmpFileName . "  // " . $target_dir;
   switch (strtolower(substr(strrchr($target_dir, "."), 1))) {
     case 'png':
       imagepng($imageDest,$target_dir);

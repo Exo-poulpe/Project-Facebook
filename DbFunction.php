@@ -60,10 +60,10 @@ function getImagesByMessageId($idMessage) // Recupere le message a partir de l'i
 }
 
 
-function setMessageOnDb($Message) // Insere le message taper dans la base de donnée
+function setMessageOnDb($message) // Insere le message taper dans la base de donnée
 {
   $connect = connectToDb();
-  $request = $connect->prepare("INSERT INTO messages (message) VALUES (\"" . $Message . "\")"); // prepare la requete SQL pour envoyer le texte
+  $request = $connect->prepare("INSERT INTO messages (message) VALUES (\"" . $message . "\")"); // prepare la requete SQL pour envoyer le texte
 
   if ($request->execute()) {
     return $connect->lastInsertId();
@@ -72,12 +72,12 @@ function setMessageOnDb($Message) // Insere le message taper dans la base de don
   }
 }
 
-function setImagesPathOnDb($PathImage,$idMessage)  // Insere dans la base de donnée le chemin de l'image
+function setImagesPathOnDb($pathImage,$idMessage)  // Insere dans la base de donnée le chemin de l'image
 {
-  $PathImage = str_replace("\\","\\\\",$PathImage); // Double les '\' pour que le chemin soit correct dans la requete SQL
+  $PathImage = str_replace("\\","\\\\",$pathImage); // Double les '\' pour que le chemin soit correct dans la requete SQL
   $connect = connectToDb();
   $request = $connect->prepare( "INSERT INTO images (path, idMessage) VALUES (:PathImage,:idMessage)");
-  $request->bindParam(":PathImage",$PathImage,PDO::PARAM_STR);
+  $request->bindParam(":PathImage",$pathImage,PDO::PARAM_STR);
   $request->bindParam(":idMessage",$idMessage,PDO::PARAM_INT);
   $request->execute();
 
@@ -90,4 +90,19 @@ function getLastIdMessage() // recupere le dernier idMessage du dernier message 
   $request->execute();
   return $request->fetch()["idMessage"];
 }
+
+function delImagesFromId($idMsg)
+{
+  $connect = connectToDb();
+  $request = $connect->prepare( "DELETE FROM images WHERE idMessage = {$idMsg}" );
+  $request->execute();
+}
+
+function delMessageFromId($idMsg)
+{
+  $connect = connectToDb();
+  $request = $connect->prepare( "DELETE FROM messages WHERE idMessage = {$idMsg}" );
+  $request->execute();
+}
+
  ?>

@@ -94,6 +94,7 @@
                 print("<h6 class=\"text-left text-top text-muted\" > " . date("Y/m/d-H:m:s") . " </h6>"); ?>
                 <!-- style="background:url('.\\images\\Trash.png');width: 50px;height:50px;margin-left: 90%;color: transparent;" !-->
               <form action="DeleteImages.php" method="get"><input type="submit" class="btn " style="background:url('.\\images\\Trash.png');width: 50px;height:50px;margin-left: 95%;color: transparent;" value=<?php print("{$row['idMessage']}"); ?> name="id"/></form>
+              <form action="ModificatePost.php" method="get"><input type="submit" class="btn " style="background:url('.\\images\\Pen.png');width:50px;height:50px;color:transparent;margin-left:95%;" ?> </form>
               <?php
 
               print("<p id={$row["idMessage"]}> {$row["message"]} </p>");

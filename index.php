@@ -13,7 +13,7 @@
 <body  style="background-color: #e9ebee;">
   <nav class="navbar navbar-light bg-light" style="background-color: #29487d !important;">
   <a class="navbar-brand" href="#" style="color: rgba(255, 255, 255, 0.9);">
-    <img src="/docs/4.1/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="" >
+    <img src="/docs/4.1/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top " alt="" >
     PoulpBook
   </a>
 </nav>
@@ -31,7 +31,7 @@
     <div class="row" >
 
       <div class="col-sm-3">
-        <img src="images/CFPT_logo.png"  alt="CFPT_logo" class="img-fluid" />
+        <img src="images/CFPT_logo.png"  alt="CFPT_logo" class="img-fluid" style="margin-top: 15px;" />
         <div class="h4 text-muted"><b>
           Troller Fabian
           <br>
@@ -46,7 +46,7 @@
       </div>
 
       <div class="col-sm-9" >
-        <img src="images/Code_image.jpg"  alt="Code_image" style="width: 100%"/><!-- class=" img-fluid w-75"-->
+        <img src="images/Code_image.jpg"  alt="Code_image" style="width: 100%;margin-top: 15px;"/><!-- class=" img-fluid w-75"-->
       </div>
 
 
@@ -66,7 +66,7 @@
           <br>
           1212 Terre</b>
         </div>
-        <div class="col-sm-6" style="border : 2px solid #4d4d4d; border-radius: 5px;">
+        <div class="col-sm-6" style="border : 2px solid #4d4d4d; border-radius: 5px;margin-top: 50px;">
           <form method="post" action="PhpServer.php" enctype="multipart/form-data" id="formulaire" class="text-center">
             <br>
             <textarea rows="5" cols="100" form="formulaire" name="textPost" class="img-fluid form-control" placeholder="Exprimez-vous"></textarea>
@@ -103,13 +103,20 @@
             ?>
             <div class="rows center-block text-center" ><!--center-block text-center border border-dark bg-white mt-5 -->
               <div class="col-sm-8 offset-sm-2 mt-5 center-block text-center" style="border : 2px solid #4d4d4d; border-radius: 5px;">
-              <form action="DeleteImages.php" method="get"><input type="submit" class="btn" style="background:url('.\\images\\Trash.png');width: 50px;height:50px;margin-left: 90%;color: transparent;" value=<?php print("{$row['idMessage']}"); ?> name="id"/></form>
-              <?php print("<p id={$row["idMessage"]}> {$row["message"]} </p>");
+                <?php
+                date_default_timezone_set("Europe/Zurich");
+                print("<h6 class=\"text-left text-top \" > " . get_current_user() . " </h6>");
+                print("<h6 class=\"text-left text-top text-muted\" > " . date("Y/m/d-H:m:s") . " </h6>"); ?>
+                <!-- style="background:url('.\\images\\Trash.png');width: 50px;height:50px;margin-left: 90%;color: transparent;" !-->
+              <form action="DeleteImages.php" method="get"><input type="submit" class="btn " style="background:url('.\\images\\Trash.png');width: 50px;height:50px;margin-left: 95%;color: transparent;" value=<?php print("{$row['idMessage']}"); ?> name="id"/></form>
+              <?php
+
+              print("<p id={$row["idMessage"]}> {$row["message"]} </p>");
               $listImages = getImagesByMessageId($row["idMessage"]);
 
               //var_dump($row);
               foreach ($listImages as $rowImage) { ?>
-                <?php  print("<img src=\"{$rowImage['path']}\" alt=\"error\" class=\"col-4 img-fluid\" style=\"margin-bottom: 15px;margin-top: 5px;\" >");
+                <?php  print("<img src=\"{$rowImage['path']}\" alt=\"error\" class=\"col-sm-5 img-fluid\" style=\"margin-bottom: 15px;margin-top: 5px;\" >");
               }?>
             </div>
             </div>

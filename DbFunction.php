@@ -62,9 +62,14 @@ function getImagesByMessageId($idMessage) // Recupere le message a partir de l'i
 
 function setMessageOnDb($message) // Insere le message taper dans la base de donnée
 {
+  if(strlen($message)>=140)
+  {
+    return -1;
+  }
   $connect = connectToDb();
-  $request = $connect->prepare("INSERT INTO messages (message) VALUES (\"" . $message . "\")"); // prepare la requete SQL pour envoyer le texte
-
+  $request = $connect->prepare("INSERT INTO messages (message) VALUES (:message)"); // prepare la requete SQL pour envoyer le texte
+  var_dump($message);
+  $request->bindParam(':message',$message,PDO::PARAM_STR);
   if ($request->execute()) {
     return $connect->lastInsertId();
   }else {

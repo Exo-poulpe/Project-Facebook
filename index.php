@@ -32,16 +32,7 @@
 
       <div class="col-sm-3">
         <img src="images/CFPT_logo.png"  alt="CFPT_logo" class="img-fluid" style="margin-top: 15px;" />
-        <div class="h4 text-muted"><b>
-          Troller Fabian
-          <br>
-          Computer Scientist
-          <br>
-          CFPT Informatique
-          <br>
-          Rue des Poulpes 456
-          <br>
-          1212 Terre</b>
+        <div class="h4 text-muted">
         </div>
       </div>
 
@@ -54,7 +45,7 @@
 
     <!--Formulaire-->
     <div class="row" >
-      <div class="col-sm-3">
+      <div class="col-sm-2 border">
         <b>
           Troller Fabian
           <br>
@@ -66,30 +57,24 @@
           <br>
           1212 Terre</b>
         </div>
-        <div class="col-sm-6" style="border : 2px solid #4d4d4d; border-radius: 5px;margin-top: 50px;">
+        <div class="col-sm-6 offset-sm-1 " style="border : 2px solid #4d4d4d; border-radius: 5px;margin-top: 50px;">
           <form method="post" action="PhpServer.php" enctype="multipart/form-data" id="formulaire" class="text-center">
             <br>
-            <textarea rows="5" cols="100" form="formulaire" name="textPost" class="img-fluid form-control" placeholder="Exprimez-vous"></textarea>
+            <textarea rows="5" cols="100" form="formulaire" name="textPost" class="img-fluid form-control mt-2" placeholder="Exprimez-vous"></textarea>
             <br>
             <br>
-            <input type="file" accept="image/*" multiple name="filePictures[]"/>
+            <input type="file" accept="image/*" multiple name="filePictures[]" class="mt-2"/>
             <br>
             <br>
-            <input type="submit" name="btnEnvoyer" value="Choisir un fichier" class="btn btn-outline-secondary" style="margin-bottom: 10px;"/>
+            <input type="submit" name="btnEnvoyer" value="Envoyer" class="btn btn-outline-secondary mt-2 " style="margin-bottom: 10px;margin-top: 50px;"/>
           </form>
 
         </div>
-        <div class="col-sm-3">
-          <b>
-            Troller Fabian
-            <br>
-            Computer Scientist
-            <br>
-            CFPT Informatique
-            <br>
-            Rue des Poulpes 456
-            <br>
-            1212 Terre</b>
+        <div class="col-sm-2 border offset-sm-1">
+          <p><b>A propos</b></p>
+          email: alisuhf@gmail.com
+          portable: 01234567890
+
           </div>
         </div>
 

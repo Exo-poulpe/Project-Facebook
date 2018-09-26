@@ -97,10 +97,10 @@ function moveFile($tmpPath,$fileName)
   $target_dir = "./images/uploads/";
   $UUID = uniqid('',true);
   echo $UUID;
-  $newName = $target_dir . $UUID . "_" . $fileName ;
+  $newName = $target_dir . $UUID . "_" . substr(strrchr($fileName, "."), 0);
   $target_dir .= substr(strrchr($tmpPath, "\\"), 1);
   //$target_dir .= substr(strrchr(substr(strrchr($tmpPath, "."), 1), "\\"), 1) . ".png";
-  echo $newName;
+  echo $newName = str_replace(" ","_",$newName);;
   ResizeImage($tmpPath,$newName);
   return $newName;
 }
@@ -115,6 +115,7 @@ function ResizeImage($tmpFileName,$target_dir)
   $imageDest = imagecreatetruecolor($width,$heigth);
   imagecopyresampled($imageDest,$imageSource,0,0,0,0,$width,$heigth,imagesx($imageSource),imagesy($imageSource));
   imagedestroy($imageSource);
+  echo $target_dir;
   switch (strtolower(substr(strrchr($target_dir, "."), 1))) {
     case 'png':
       imagepng($imageDest,$target_dir);

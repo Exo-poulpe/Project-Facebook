@@ -3,7 +3,7 @@ $idMsg = $_GET["idMsg"];
 ?>
 <!DOCTYPE html>
 <!-- style="background-color: #29487d;" bleu-->
-<!-- style="background-color: #e9ebee -->
+<!-- style="background-color: #e9ebee    <form><input type="submit" name="id" value= print("{$Image['$idImage']}");  /></form> -->
 <html>
 <head>
   <meta charset="utf-8">
@@ -24,13 +24,17 @@ $idMsg = $_GET["idMsg"];
     $listMsg = getMessageFromDb($idMsg);
       foreach ($listMsg as $row) {
         $listImages = getImagesByMessageId($row["idMessage"]);
-        foreach ($listImages as $Image) {
-          print("<img src=\"{$Image['path']}\" alt=\"error\" class=\"col-sm-5 img-fluid mt-3 mb-3 img-thumbnail w-25 h-25\" >");
+        foreach ($listImages as $Image)
+        {
+          ?>
+          <img class="col-sm-2 img-fluid mt-2 mb-2 w-25 h-25" src=<?php print("{$Image['path']}"); ?> alt="error" id=<?php print("{$row['idMessage']}"); ?> >
+          <?php
+
         }
       }
      ?>
      <br>
-     <input type="hidden"  value=<?php print("$idMsg"); ?> name="id" />
+     <input type="hidden"  value=<?php print("{$idMsg}"); ?> name="id" />
     <input type="submit" value="Valider" class="btn btn-success rounded mt-2 mb-2"/>
   </div>
 </form>

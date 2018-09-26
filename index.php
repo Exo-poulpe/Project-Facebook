@@ -57,7 +57,7 @@
           <br>
           1212 Terre</b>
         </div>
-        <div class="col-sm-6 offset-sm-1 " style="border : 2px solid #4d4d4d; border-radius: 5px;margin-top: 50px;">
+        <div class="col-sm-7 offset-sm-1 " style="border : 2px solid #4d4d4d; border-radius: 5px;margin-top: 50px;">
           <form method="post" action="PhpServer.php" enctype="multipart/form-data" id="formulaire" class="text-center">
             <br>
             <textarea rows="5" cols="100" form="formulaire" name="textPost" class="img-fluid form-control mt-2" placeholder="Exprimez-vous"></textarea>
@@ -70,7 +70,7 @@
           </form>
 
         </div>
-        <div class="col-sm-2 border offset-sm-1">
+        <div class="col-sm-2 border">
           <p><b>A propos</b></p>
           email: alisuhf@gmail.com
           portable: 01234567890
@@ -87,14 +87,14 @@
             // code...
             ?>
             <div class="rows center-block text-center" ><!--center-block text-center border border-dark bg-white mt-5 -->
-              <div class="col-sm-8 offset-sm-2 mt-5 center-block text-center" style="border : 2px solid #4d4d4d; border-radius: 5px;">
+              <div class="col-sm-7 offset-sm-3 mt-5 center-block text-center" style="border : 2px solid #4d4d4d; border-radius: 5px;">
                 <?php
                 date_default_timezone_set("Europe/Zurich");
                 print("<h6 class=\"text-left text-top \" > " . get_current_user() . " </h6>");
                 print("<h6 class=\"text-left text-top text-muted\" > " . date("Y/m/d-H:m:s") . " </h6>"); ?>
                 <!-- style="background:url('.\\images\\Trash.png');width: 50px;height:50px;margin-left: 90%;color: transparent;" !-->
-              <form action="DeleteImages.php" method="get"><input type="submit" class="btn " style="background:url('.\\images\\Trash.png');width: 50px;height:50px;margin-left: 95%;color: transparent;" value=<?php print("{$row['idMessage']}"); ?> name="id"/></form>
-              <form action="ModificatePost.php" method="get"><input type="submit" class="btn " style="background:url('.\\images\\Pen.png');width:50px;height:50px;color:transparent;margin-left:95%;" ?> </form>
+              <form action="DeleteImages.php" method="get"><input type="submit" class="btn " style="background:url('.\\images\\Trash.png');width: 30px;height:30px;margin-left: 90%;color: transparent;background-repeat: no-repeat;" value=<?php print("{$row['idMessage']}"); ?> name="id"/></form>
+              <form action="UpdateDb.php" method="get""><input type="submit" class="btn " style="background:url('.\\images\\Pen.png');width:30px;height:30px;color:transparent;margin-left:90%;background-repeat: no-repeat;" ?> </form>
               <?php
 
               print("<p id={$row["idMessage"]}> {$row["message"]} </p>");
@@ -106,7 +106,7 @@
               }?>
             </div>
             </div>
-          <?php } ?>
+          <?php }  ?>
         </div>
         <br/>
       </body>

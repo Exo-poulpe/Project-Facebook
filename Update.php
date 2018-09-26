@@ -26,12 +26,10 @@ $idMsg = $_GET["idMsg"];
         $listImages = getImagesByMessageId($row["idMessage"]);
         foreach ($listImages as $Image)
         {
-          var_dump($Image);
           ?>
           <form action="DeleteImages.php">
-
           <img class="col-sm-2 img-fluid mt-2 mb-2 w-25 h-25" src=<?php print("{$Image['path']}"); ?> alt="error" id=<?php print("{$row['idMessage']}"); ?> >
-          <input class="btn img-fluid" name="id" style="position: absolute;background:url('.\\images\\Trash.png');width: 30px;height:30px;color: transparent;background-repeat: no-repeat;" />
+          <input class="btn img-fluid" name="path" value=<?php print("{$Image['path']}"); ?> style="position: absolute;background:url('.\\images\\Trash.png');width: 30px;height:30px;color: transparent;background-repeat: no-repeat;" />
         </form>
           <?php
 
@@ -39,10 +37,11 @@ $idMsg = $_GET["idMsg"];
       }
 
      ?>
-     <input type="file"/>
      <br>
-     <input type="hidden"  value=<?php print("{$idMsg}"); ?> name="id" />
-    <input type="submit" value="Valider" class="btn btn-success rounded mt-2 mb-2"/>
+     <input type="file" accept="image/*" multiple name="filePictures[]"/>
+     <br>
+     <input type="hidden"  value=<?php print("{$idMsg}"); ?> name="idM" />
+    <input type="submit" value="Valider" class="btn btn-success rounded mt-5 mb-2"/>
   </div>
 </form>
 

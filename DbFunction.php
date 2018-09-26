@@ -110,6 +110,15 @@ function delMessageFromId($idMsg)
   $request->execute();
 }
 
+function updateMsgFromMessageId($idMsg,$msg)
+{
+  $connect = connectToDb();
+  $request = $connect->prepare("UPDATE messages SET message = ':msg' WHERE idMessage = :idMsg");
+  $request->bindParam(":idMsg",$idMsg,PDO::PARAM_STR);
+  $request->bindParam(":msg",$msg,PDO::PARAM_STR);
+  $request->execute();
+}
+
 /*function UpdatePostMessage($idMsg,$msg)
 {
   echo "dswrf";

@@ -15,9 +15,10 @@ $idMsg = $_GET["idMsg"];
 
 <body  style="background-color: #e9ebee;">
 
-  <div class="border border-dark col-sm-10 offset-sm-1 text-center">
+  <form action="UpdateDb.php" method="post">
+    <div class="border border-dark col-sm-10 offset-sm-1 text-center">
     <?php $msg = getMessageFromDb($idMsg);?>
-    <textarea rows="5" cols="50" class="mt-3"><?php print($msg[0]["message"]); ?></textarea>
+    <textarea rows="5" cols="50" class="mt-3" name="text"><?php print($msg[0]["message"]); ?></textarea>
     <br>
     <?php
     $listMsg = getMessageFromDb($idMsg);
@@ -29,8 +30,10 @@ $idMsg = $_GET["idMsg"];
       }
      ?>
      <br>
-    <input type="submit" value="Valider" name="Post" class="btn btn-success rounded mt-2 mb-2"/>
+     <input type="hidden"  value=<?php print("$idMsg"); ?> name="id" />
+    <input type="submit" value="Valider" class="btn btn-success rounded mt-2 mb-2"/>
   </div>
+</form>
 
 
 </body>

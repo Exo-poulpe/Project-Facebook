@@ -1,27 +1,26 @@
 <?php
 include 'DbFunction.php';
 
-$idMsg = $_GET["update"];
-UpdatePostMessage($idMsg);
+$idMsg = $_POST["id"];
+$message = $_POST["text"];
 
-function UpdatePostMessage($idMessage)
+UpdatePostMessage($idMsg,$message);
+
+function UpdatePostMessage($idMessage,$msg)
 {
-  $connect = connectToDb();
+  /*$connect = connectToDb();
   $request = $connect->prepare("SELECT message FROM messages WHERE idMessage = :id");
   $request->bindParam(":id",$idMessage,PDO::PARAM_INT);
   //var_dump($request);
   $request->execute();
-  $resultat = $request->fetchAll(PDO::FETCH_ASSOC);
-  
+  $resultat = $request->fetchAll(PDO::FETCH_ASSOC);*/
 
 
-  /*$connect = connectToDb();
-  $request = $connect->prepare("UPDATE messages SET message = :msg WHERE idMessage = idMsg");
-  $request->bindParam(":idMessage",$idMsg,PDO::PARAM_STR);
-  $request->bindParam(":message",$msg,PARAM_STR);
-  $request->execute();*/
+  $connect = connectToDb();
+  $request = $connect->prepare("UPDATE messages SET message = ? WHERE idMessage = ?");
+  $request->execute([$msg,$idMessage]);
 
 }
 
-
+header('Location: index.php');
  ?>

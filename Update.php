@@ -28,7 +28,7 @@ $idMsg = $_GET["idMsg"];
         {
           ?>
           <form action="DeleteImages.php">
-          <img class="col-sm-2 img-fluid mt-2 mb-2 w-25 h-25" src=<?php print("{$Image['path']}"); ?> alt="error" id=<?php print("{$row['idMessage']}"); ?> >
+          <img class="col-sm-2 img-fluid mt-2 mb-2 w-25 h-25" src=<?php print("{$Image['path']}"); ?> alt="error" id=<?php echo getIdFromPathImage($Image['path']); ?> >
           <input class="btn img-fluid" name="path" value=<?php print("{$Image['path']}"); ?> style="position: absolute;background:url('.\\images\\Trash.png');width: 30px;height:30px;color: transparent;background-repeat: no-repeat;" />
         </form>
           <?php

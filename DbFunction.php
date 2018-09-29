@@ -62,9 +62,9 @@ function getImagesByMessageId($idMessage) // Recupere le message a partir de l'i
 
 function setMessageOnDb($message) // Insere le message taper dans la base de donnée
 {
-  if(strlen($message)>=140)
+  if(strlen($message)>140)
   {
-    return -1;
+    $message = substr($message,0,140);
   }
   $connect = connectToDb();
   $request = $connect->prepare("INSERT INTO messages (message) VALUES (:message)"); // prepare la requete SQL pour envoyer le texte

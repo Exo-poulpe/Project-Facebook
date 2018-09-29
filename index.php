@@ -42,7 +42,11 @@
 
 
     </div>
-
+    <div class="row ">
+      <input class="col-sm-1 offset-sm-4 btn btn-secondary" type="button" value="Post"/>
+      <input class="col-sm-1 btn btn-secondary " type="button" value="Profil"/>
+      <input class="col-sm-1 btn btn-secondary " type="button" Value="Images" />
+    </div>
     <!--Formulaire-->
     <div class="row" >
       <div class="col-sm-2 border">
@@ -57,10 +61,12 @@
           <br>
           1212 Terre</b>
         </div>
-        <div class="col-sm-7 offset-sm-1 " style="border : 2px solid #4d4d4d; border-radius: 5px;margin-top: 50px;">
+
+        <div class="col-sm-7 offset-sm-1 bg-white" style="border : 2px solid #4d4d4d; border-radius: 5px;margin-top: 50px;">
           <form method="post" action="PhpServer.php" enctype="multipart/form-data" id="formulaire" class="text-center">
             <br>
-            <textarea rows="5" cols="100" form="formulaire" name="textPost" class="img-fluid form-control mt-2" placeholder="Exprimez-vous"></textarea>
+            <div class="text-secondary " style="text-align:left !important;"> <h5><small>Max 140 caractères</small></h5></div>
+            <textarea rows="5" cols="100" form="formulaire" name="textPost" class="img-fluid form-control mt-2 border-dark" placeholder="Exprimez-vous"></textarea>
             <br>
             <br>
             <input type="file" accept="image/*" multiple name="filePictures[]" class="mt-2"/>
@@ -78,7 +84,7 @@
           </div>
         </div>
 
-        <div class="container">
+        <div class="container ">
           <?php
           $listMessages = getMessagesFromDb();
           //SELECT idMessage from messages WHERE 1
@@ -86,8 +92,8 @@
           foreach ($listMessages as $row) {
             // code...
             ?>
-            <div class="rows center-block text-center" ><!--center-block text-center border border-dark bg-white mt-5 -->
-              <div class="col-sm-7 offset-sm-3 mt-5 center-block text-center" style="border : 2px solid #4d4d4d; border-radius: 5px;">
+            <div class="rows center-block text-center " ><!--center-block text-center border border-dark bg-white mt-5 -->
+              <div class="col-sm-7 offset-sm-3 mt-5 center-block text-center bg-white" style="border : 2px solid #4d4d4d; border-radius: 5px;">
                 <?php
                 date_default_timezone_set("Europe/Zurich");
                 print("<h6 class=\"text-left text-top \" > " . get_current_user() . " </h6>");

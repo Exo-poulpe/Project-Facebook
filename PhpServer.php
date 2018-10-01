@@ -42,11 +42,6 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
     }
 
   }
-
-
-
-
-
 }
 
 

@@ -39,6 +39,7 @@ function getMessageFromDb($idMessage) // Recupere le message a partir de l'id
   return $resultat;
 }
 
+
 function getMessagesFromDb() // Recupere le message a partir de l'id
 {
   $connect = connectToDb();
@@ -83,14 +84,25 @@ function getImagesIdFromIdMsg($idMsg)
 function setMessageOnDb($message) // Insere le message taper dans la base de donnée
 {
   $connect = connectToDb();
-  $request = $connect->prepare("INSERT INTO messages (message) VALUES (:message)"); // prepare la requete SQL pour envoyer le texte
+  $request = $connect->prepare("INSERT INTO messages (message,date) VALUES (:message,:time)"); // prepare la requete SQL pour envoyer le texte
   var_dump($message);
   $request->bindParam(':message',$message,PDO::PARAM_STR);
+  $request->bindParam(':time',date('Y-m-d:h:m:s'),PDO::PARAM_STR);
   if ($request->execute()) {
     return $connect->lastInsertId();
   }else {
     return -1;
   }
+}
+
+function getDateFromIdMsg($idMsg)
+{
+  $connect = connectToDb();
+  $request = $connect->prepare("SELECT date FROM `messages` WHERE idMessage = :idmessage"); // prepare la requete SQL
+  $request->bindParam(':idmessage',$idMsg,PDO::PARAM_INT);
+  $request->execute();
+  $resultat = $request->fetchAll(PDO::FETCH_ASSOC);
+  return $resultat;
 }
 
 function setImagesPathOnDb($pathImage,$idMessage)  // Insere dans la base de donnée le chemin de l'image

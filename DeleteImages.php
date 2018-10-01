@@ -3,8 +3,8 @@ include 'DbFunction.php';
 
 $idMsg = $_GET["id"];
 
-var_dump($_GET["id"]);
 
+delImagesOnDiskFromIdMsg($idMsg);
 delImagesFromId($idMsg);
 delMessageFromId($idMsg);
 

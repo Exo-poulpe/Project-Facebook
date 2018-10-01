@@ -65,7 +65,6 @@
         <div class="col-sm-7 offset-sm-1 bg-white" style="border : 2px solid #4d4d4d; border-radius: 5px;margin-top: 50px;">
           <form method="post" action="PhpServer.php" enctype="multipart/form-data" id="formulaire" class="text-center">
             <br>
-            <div class="text-secondary " style="text-align:left !important;"> <h5><small>Max 140 caractères</small></h5></div>
             <textarea rows="5" cols="100" form="formulaire" name="textPost" class="img-fluid form-control mt-2 border-dark" placeholder="Exprimez-vous"></textarea>
             <br>
             <br>

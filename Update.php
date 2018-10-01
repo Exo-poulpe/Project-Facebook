@@ -25,7 +25,7 @@ $idMsg = $_GET["idMsg"];
       foreach ($listMsg as $row) {
         $listImages = getImagesByMessageId($row["idMessage"]);
         foreach ($listImages as $Image)
-        { 
+        {
           ?>
           <form action="DeleteImages.php">
           <img class="col-sm-2 img-fluid mt-2 mb-2 w-25 h-25" src=<?php print("{$Image['path']}"); ?> alt="error" id=<?php print($Image['path']); ?> >

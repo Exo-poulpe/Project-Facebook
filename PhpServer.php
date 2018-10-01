@@ -31,35 +31,18 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
   }
   else
   {
-    //echo $myFile["name"][$i];
-    //echo "Chemin temp : " . $myFile["tmp_name"][$i];
-    //echo " ";
-
     $tmpName = $myFile["tmp_name"][$i];
     $fileName = $myFile["name"][$i]; // recupere l'extension du fichier
-    //checkFileType($tmpName);
-    //checkExtensionName($fileName);
     if (checkExtensionName($fileName))  // regarde si l'extension est dans la liste
     {
       if (checkFileType($tmpName))
       {
-        //setImagesPathOnDb($myFile["tmp_name"][$i],$lastIdMessage);
-
         setImagesPathOnDb(moveFile($tmpName,$fileName),$lastIdMessage);
-        //$listImage = AddPathToList($listImage,moveFile($tmpName,$fileName));
-        //$listMessage = AddMessageToList($listMessage,$textPost);
-
-
       }
     }
 
-    //setImagesPathOnDb($target_dir);
-    //echo "Chemin upload : " . $target_dir;
-    //echo " ";
-
   }
 
-  //var_dump(getMessageFromDb(1));
 
 
 

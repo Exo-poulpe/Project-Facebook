@@ -5,8 +5,11 @@ $idMsg = $_POST["idM"];
 $message = $_POST["text"];
 $pathImage = $_POST["path"];
 
+
+
 UpdatePostMessage($idMsg,$message);
-$idImage = getIdFromPathImage($pathImage);
+//$idImage = getIdFromPathImage($pathImage);
+
 
 function UpdatePostMessage($idMessage,$msg)
 {
@@ -26,5 +29,5 @@ function getIdFromPathImage($pathImage)
 
 }
 
-header('Location: index.php');
+//header('Location: index.php');
  ?>

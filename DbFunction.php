@@ -59,13 +59,29 @@ function getImagesByMessageId($idMessage) // Recupere le message a partir de l'i
   return $resultat;
 }
 
+function getPathFromIdImage($idImage)
+{
+  $connect = connectToDb();
+  $request = $connect->prepare("SELECT path from images where idImage = :idimage"); // prepare la requete SQL
+  $request->bindParam(':idimage',$idImage,PDO::PARAM_INT);
+  $request->execute();
+  $resultat = $request->fetchAll(PDO::FETCH_ASSOC);
+  return $resultat;
+}
+
+function getImagesIdFromIdMsg($idMsg)
+{
+  $connect = connectToDb();
+  $request = $connect->prepare("SELECT * from images where idMessage = :idmessage"); // prepare la requete SQL
+  $request->bindParam(':idmessage',$idMsg,PDO::PARAM_INT);
+  $request->execute();
+  $resultat = $request->fetchAll(PDO::FETCH_ASSOC);
+  return $resultat;
+}
+
 
 function setMessageOnDb($message) // Insere le message taper dans la base de donnée
 {
-  if(strlen($message)>140)
-  {
-    $message = substr($message,0,140);
-  }
   $connect = connectToDb();
   $request = $connect->prepare("INSERT INTO messages (message) VALUES (:message)"); // prepare la requete SQL pour envoyer le texte
   var_dump($message);
@@ -101,6 +117,24 @@ function delImagesFromId($idMsg)
   $connect = connectToDb();
   $request = $connect->prepare( "DELETE FROM images WHERE idMessage = {$idMsg}" );
   $request->execute();
+
+}
+
+function delImageOnDiskFromId($idImage)
+{
+  $target_dir = "./images/uploads/";
+  $pathLocalFile = getPathFromIdImage($idImage);
+  $fileToDel = $pathLocalFile[0]['path'];
+  unlink($fileToDel);
+}
+
+
+function delImagesOnDiskFromIdMsg($idMsg)
+{
+  $images = getImagesIdFromIdMsg($idMsg);
+  foreach ($images as $image) {
+    delImageOnDiskFromId($image['idImage']);
+  }
 }
 
 function delMessageFromId($idMsg)

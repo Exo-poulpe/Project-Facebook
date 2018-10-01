@@ -70,7 +70,10 @@
             <textarea rows="5" cols="100" form="formulaire" name="textPost" class="img-fluid form-control mt-2 border-dark" placeholder="Exprimez-vous"></textarea>
             <br>
             <br>
+            <div class="btn btn-muted border-secondary btn-sm">
+            <span>Choose file</span>
             <input type="file" accept="image/*" multiple name="filePictures[]" class="mt-2"/>
+            </div>
             <br>
             <br>
             <input type="submit" name="btnEnvoyer" value="Envoyer" class="btn btn-outline-secondary mt-2 " style="margin-bottom: 10px;margin-top: 50px;"/>

@@ -17,9 +17,15 @@ $myFile = $_FILES["filePictures"];
 
 /***********************************/
 
+try {
 
+
+
+$connect = connectToDb();
+$connect->beginTransaction();
 $lastIdMessage = setMessageOnDb($_REQUEST["textPost"]);
 
+$listFiles = [];
 
 for ($i=0; $i < count($myFile["name"]); $i++) {
 
@@ -37,11 +43,21 @@ for ($i=0; $i < count($myFile["name"]); $i++) {
     {
       if (checkFileType($tmpName))
       {
-        setImagesPathOnDb(moveFile($tmpName,$fileName),$lastIdMessage);
+        $fileNewName = moveFile($tmpName,$fileName);
+        $listFiles[] = $fileNewName;
+        setImagesPathOnDb($fileNewName,$lastIdMessage);
       }
     }
 
   }
+}
+$connect->commit();
+} catch (\Exception $e)
+{
+  foreach ($listFiles as $file) {
+    unlink($file);
+  }
+  $connect->rollback();
 }
 
 
@@ -74,11 +90,11 @@ function moveFile($tmpPath,$fileName)
 {
   $target_dir = "./images/uploads/";
   $UUID = uniqid('',true);
-  echo $UUID;
+  //echo $UUID;
   $newName = $target_dir . $UUID . "_" . substr(strrchr($fileName, "."), 0);
   $target_dir .= substr(strrchr($tmpPath, "\\"), 1);
   //$target_dir .= substr(strrchr(substr(strrchr($tmpPath, "."), 1), "\\"), 1) . ".png";
-  echo $newName = str_replace(" ","_",$newName);;
+  //echo $newName = str_replace(" ","_",$newName);;
   ResizeImage($tmpPath,$newName);
   return $newName;
 }
@@ -93,7 +109,7 @@ function ResizeImage($tmpFileName,$target_dir)
   $imageDest = imagecreatetruecolor($width,$heigth);
   imagecopyresampled($imageDest,$imageSource,0,0,0,0,$width,$heigth,imagesx($imageSource),imagesy($imageSource));
   imagedestroy($imageSource);
-  echo $target_dir;
+  //echo $target_dir;
   switch (strtolower(substr(strrchr($target_dir, "."), 1))) {
     case 'png':
       imagepng($imageDest,$target_dir);

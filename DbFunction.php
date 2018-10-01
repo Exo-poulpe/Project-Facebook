@@ -87,7 +87,8 @@ function setMessageOnDb($message) // Insere le message taper dans la base de don
   $request = $connect->prepare("INSERT INTO messages (message,date) VALUES (:message,:time)"); // prepare la requete SQL pour envoyer le texte
   var_dump($message);
   $request->bindParam(':message',$message,PDO::PARAM_STR);
-  $request->bindParam(':time',date('Y-m-d:H:i:s'),PDO::PARAM_STR);
+  $time = date('Y-m-d:H:i:s');
+  $request->bindParam(':time',$time,PDO::PARAM_STR);
   if ($request->execute()) {
     return $connect->lastInsertId();
   }else {

@@ -31,7 +31,8 @@ $idMsg = $_GET["idMsg"];
           ?>
           <div>
           <img class="col-sm-2 img-fluid mt-2 mb-2 w-25 h-25" src=<?php print("{$Image['path']}"); ?> alt="error" id=<?php print($images[$i]['idImage']); ?> >
-          <input class="btn img-fluid" name="idImg" value=<?php print($images[$i]['idImage']); ?> style="position: absolute;background:url('.\\images\\Trash.png');width: 30px;height:30px;color: transparent;background-repeat: no-repeat;" />
+          <input class="btn img-fluid " name="idImg" value=<?php print($images[$i]['idImage']); ?> style="position: absolute;color: transparent;background:url('.\\images\\Trash.png');;width: 30px;height:30px;background-repeat: no-repeat;" />
+          <input type="checkbox" name="chkDeleteImage[]" value=<?php print($images[$i]['idImage']); ?> />
         </div>
 
           <?php

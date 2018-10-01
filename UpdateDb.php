@@ -4,8 +4,10 @@ include 'DbFunction.php';
 $idMsg = $_POST["idM"];
 $message = $_POST["text"];
 $pathImage = $_POST["path"];
+$idCheck = $_POST["chkDeleteImage"];
 date_default_timezone_set('Europe/Zurich');
 
+var_dump($idCheck);
 
 UpdatePostMessage($idMsg,$message);
 $idImage = getImagesIdFromIdMsg($idMsg)[0]['idImage'];

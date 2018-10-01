@@ -1,14 +1,16 @@
 <?php
 include 'DbFunction.php';
 
-$idMsg = $_GET["id"];
+$idMsg = $_POST["id"];
+$idCheck = $_POST["chkDeleteImage"];
 
-
-delImagesOnDiskFromIdMsg($idMsg);
+var_dump($idMsg);
+var_dump($idCheck);
+/*delImagesOnDiskFromIdMsg($idMsg);
 delImagesFromId($idMsg);
-delMessageFromId($idMsg);
+delMessageFromId($idMsg);*/
 
-header('Location: index.php');
+//header('Location: index.php');
 
 
 

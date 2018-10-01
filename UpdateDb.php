@@ -8,6 +8,8 @@ date_default_timezone_set('Europe/Zurich');
 
 
 UpdatePostMessage($idMsg,$message);
+$idImage = getImagesIdFromIdMsg($idMsg)[0]['idImage'];
+var_dump($idImage);
 //$idImage = getIdFromPathImage($pathImage);
 
 

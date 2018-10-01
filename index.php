@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="BootStrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
   <link href="CssPhp.css" rel="stylesheet" type="text/css"/>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 
 <body  style="background-color: #e9ebee;">
@@ -102,11 +103,12 @@
               <?php
 
               print("<p id={$row["idMessage"]}> {$row["message"]} </p>");
+              print("<hr align='center' width='100%' size=2 class='bg-dark' >");
               $listImages = getImagesByMessageId($row["idMessage"]);
 
               //var_dump($row);
               foreach ($listImages as $rowImage) { ?>
-                <?php  print("<img src=\"{$rowImage['path']}\" alt=\"error\" class=\"col-sm-5 img-fluid\" style=\"margin-bottom: 15px;margin-top: 5px;\" >");
+                <?php  print("<img src=\"{$rowImage['path']}\" alt=\"error\" class=\"col-sm-5 img-fluid img-thumbnail\" style=\"margin-bottom: 15px;margin-top: 5px;\" >");
               }?>
             </div>
             </div>

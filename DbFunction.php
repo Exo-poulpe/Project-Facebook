@@ -165,16 +165,4 @@ function updateMsgFromMessageId($idMsg,$msg)
   $request->execute();
 }
 
-/*function UpdatePostMessage($idMsg,$msg)
-{
-  echo "dswrf";
-
-  $connect = connectToDb();
-  $request = $connect->prepare("UPDATE `messages` SET `:idMessage`= 444,`message`= ':message'");
-  $request->bindParam(":idMessage",$idMsg,PDO::PARAM_STR);
-  $request->bindParam(":message",$msg,PARAM_STR);
-  $request->execute();
-
-}*/
-
  ?>

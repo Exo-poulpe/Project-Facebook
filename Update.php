@@ -22,16 +22,20 @@ $idMsg = $_GET["idMsg"];
     <br>
     <?php
     $listMsg = getMessageFromDb($idMsg);
+    $images = getImagesIdFromIdMsg($idMsg);
       foreach ($listMsg as $row) {
         $listImages = getImagesByMessageId($row["idMessage"]);
+        $i = 0;
         foreach ($listImages as $Image)
         {
           ?>
-          <form action="DeleteImages.php">
-          <img class="col-sm-2 img-fluid mt-2 mb-2 w-25 h-25" src=<?php print("{$Image['path']}"); ?> alt="error" id=<?php print($Image['path']); ?> >
-          <input class="btn img-fluid" name="path" value=<?php print("{$Image['path']}"); ?> style="position: absolute;background:url('.\\images\\Trash.png');width: 30px;height:30px;color: transparent;background-repeat: no-repeat;" />
-          </form>
+          <div>
+          <img class="col-sm-2 img-fluid mt-2 mb-2 w-25 h-25" src=<?php print("{$Image['path']}"); ?> alt="error" id=<?php print($images[$i]['idImage']); ?> >
+          <input class="btn img-fluid" name="idImg" value=<?php print($images[$i]['idImage']); ?> style="position: absolute;background:url('.\\images\\Trash.png');width: 30px;height:30px;color: transparent;background-repeat: no-repeat;" />
+        </div>
+
           <?php
+          $i++;
 
         }
       }
@@ -41,6 +45,7 @@ $idMsg = $_GET["idMsg"];
      <input type="file" accept="image/*" multiple name="filePictures[]"/>
      <br>
      <input type="hidden"  value=<?php print("{$idMsg}"); ?> name="idM" />
+     <input type="hidden" value=<?php print("{$images[0]['idImage']}");?> name="idImg"/>
     <input type="submit" value="Valider" class="btn btn-success rounded mt-5 mb-2"/>
   </div>
 </form>

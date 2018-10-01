@@ -12,6 +12,7 @@
 </head>
 
 <body  style="background-color: #e9ebee;">
+  <title>PoulpBook</title>
   <nav class="navbar navbar-light bg-light" style="background-color: #29487d !important;">
   <a class="navbar-brand" href="#" style="color: rgba(255, 255, 255, 0.9);">
     <img src="/docs/4.1/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top " alt="" >
@@ -98,8 +99,8 @@
                 print("<h6 class=\"text-left text-top \" > " . get_current_user() . " </h6>");
                 print("<h6 class=\"text-left text-top text-muted\" > " . getDateFromIdMsg($row["idMessage"])[0]["date"] . " </h6>"); ?>
                 <!-- style="background:url('.\\images\\Trash.png');width: 50px;height:50px;margin-left: 90%;color: transparent;" !-->
-              <form action="DeleteImages.php" method="get"><input type="submit" class="btn " style="background:url('.\\images\\Trash.png');width: 30px;height:30px;margin-left: 90%;color: transparent;background-repeat: no-repeat;" value=<?php print("{$row['idMessage']}"); ?> name="id"/></form>
-              <form action="Update.php" method="get"><input type="submit" class="btn " name="idMsg" style="background:url('.\\images\\Pen.png');width:30px;height:30px;color:transparent;margin-left:90%;background-repeat: no-repeat;" value=<?php print("{$row['idMessage']}");?> /></form>
+              <form action="DeleteImages.php" method="get"><input type="submit" class="btn " title="Supprimer" style="background:url('.\\images\\Trash.png');width: 30px;height:30px;margin-left: 90%;color: transparent;background-repeat: no-repeat;" value=<?php print("{$row['idMessage']}"); ?> name="id"/></form>
+              <form action="Update.php" method="get"><input type="submit" class="btn " name="idMsg" title="Modifier" style="background:url('.\\images\\Pen.png');width:30px;height:30px;color:transparent;margin-left:90%;background-repeat: no-repeat;" value=<?php print("{$row['idMessage']}");?> /></form>
               <?php
 
               print("<p id={$row["idMessage"]}> {$row["message"]} </p>");

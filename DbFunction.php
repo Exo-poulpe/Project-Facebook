@@ -4,7 +4,7 @@ DEFINE('DB_HOST','127.0.0.1');
 DEFINE('DB_USER','root');
 DEFINE('DB_NAME','fb_post');
 DEFINE('DB_PASS','');
-
+date_default_timezone_set('Europe/Zurich');
 
 
 function connectToDb()  // Connection a la base de donnée
@@ -87,7 +87,7 @@ function setMessageOnDb($message) // Insere le message taper dans la base de don
   $request = $connect->prepare("INSERT INTO messages (message,date) VALUES (:message,:time)"); // prepare la requete SQL pour envoyer le texte
   var_dump($message);
   $request->bindParam(':message',$message,PDO::PARAM_STR);
-  $request->bindParam(':time',date('Y-m-d:h:m:s'),PDO::PARAM_STR);
+  $request->bindParam(':time',date('Y-m-d:H:i:s'),PDO::PARAM_STR);
   if ($request->execute()) {
     return $connect->lastInsertId();
   }else {

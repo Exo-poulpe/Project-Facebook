@@ -4,7 +4,7 @@ include 'DbFunction.php';
 $idMsg = $_POST["idM"];
 $message = $_POST["text"];
 $pathImage = $_POST["path"];
-
+date_default_timezone_set('Europe/Zurich');
 
 
 UpdatePostMessage($idMsg,$message);
@@ -14,8 +14,8 @@ UpdatePostMessage($idMsg,$message);
 function UpdatePostMessage($idMessage,$msg)
 {
   $connect = connectToDb();
-  $request = $connect->prepare("UPDATE messages SET message = ? WHERE idMessage = ?");
-  $request->execute([$msg,$idMessage]);
+  $request = $connect->prepare("UPDATE messages SET message = ? , date = ? WHERE idMessage = ?");
+  $request->execute([$msg,date('Y-m-d:H:i:s'),$idMessage]);
 
 }
 
@@ -29,5 +29,5 @@ function getIdFromPathImage($pathImage)
 
 }
 
-//header('Location: index.php');
+header('Location: index.php');
  ?>

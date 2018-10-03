@@ -141,6 +141,24 @@ function delImageOnDiskFromId($idImage)
   unlink($fileToDel);
 }
 
+function UpdatePostMessage($idMessage,$msg)
+{
+  $connect = connectToDb();
+  $request = $connect->prepare("UPDATE messages SET message = ? , date = ? WHERE idMessage = ?");
+  $request->execute([$msg,date('Y-m-d:H:i:s'),$idMessage]);
+
+}
+
+function getIdFromPathImage($pathImage)
+{
+  $connect = connectToDb();
+  $request = $connect->prepare("SELECT id_image FROM images WHERE path = ?");
+  $request->execute([$pathImage]);
+  $resultat = $request->fetchAll(PDO::FETCH_ASSOC);
+  return $resultat["id_image"];
+
+}
+
 
 function delImagesOnDiskFromIdMsg($idMsg)
 {
@@ -149,7 +167,12 @@ function delImagesOnDiskFromIdMsg($idMsg)
     delImageOnDiskFromId($image['idImage']);
   }
 }
-
+function delImageFromIdImage($idImg)
+{
+  $connect = connectToDb();
+  $request = $connect->prepare( "DELETE FROM images WHERE idImage = {$idImg}" );
+  $request->execute();
+}
 function delMessageFromId($idMsg)
 {
   $connect = connectToDb();

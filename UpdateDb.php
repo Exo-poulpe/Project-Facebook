@@ -3,34 +3,23 @@ include 'DbFunction.php';
 
 $idMsg = $_POST["idM"];
 $message = $_POST["text"];
-$pathImage = $_POST["path"];
 $idCheck = $_POST["chkDeleteImage"];
 date_default_timezone_set('Europe/Zurich');
 
-var_dump($idCheck);
+//var_dump($idCheck);
 
-UpdatePostMessage($idMsg,$message);
-$idImage = getImagesIdFromIdMsg($idMsg)[0]['idImage'];
-var_dump($idImage);
-//$idImage = getIdFromPathImage($pathImage);
-
-
-function UpdatePostMessage($idMessage,$msg)
-{
+try {
   $connect = connectToDb();
-  $request = $connect->prepare("UPDATE messages SET message = ? , date = ? WHERE idMessage = ?");
-  $request->execute([$msg,date('Y-m-d:H:i:s'),$idMessage]);
+  $connect->beginTransaction();
+  UpdatePostMessage($idMsg,$message);
+  foreach ($idCheck as $idImg) {
+    delImageOnDiskFromId($idImg);
+    delImageFromIdImage($idImg);
+  }
 
-}
-
-function getIdFromPathImage($pathImage)
-{
-  $connect = connectToDb();
-  $request = $connect->prepare("SELECT id_image FROM images WHERE path = ?");
-  $request->execute([$pathImage]);
-  $resultat = $request->fetchAll(PDO::FETCH_ASSOC);
-  return $resultat["id_image"];
-
+  $connect->commit();
+} catch (\Exception $e) {
+  $connect->rollback();
 }
 
 header('Location: index.php');

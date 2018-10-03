@@ -5,9 +5,17 @@ $idMsg = $_GET["id"];
 //$idCheck = $_POST["chkDeleteImage"];
 
 //var_dump($idMsg);
-delImagesOnDiskFromIdMsg($idMsg);
-delImagesFromId($idMsg);
-delMessageFromId($idMsg);
+
+try {
+  $connect = connectToDb();
+  $connect->beginTransaction();
+  delImagesOnDiskFromIdMsg($idMsg);
+  delImagesFromId($idMsg);
+  delMessageFromId($idMsg);
+  $connect->commit();
+} catch (Exception $e) {
+  $connect->rollback();
+}
 
 header('Location: index.php');
 

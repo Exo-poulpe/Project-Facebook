@@ -7,8 +7,7 @@ $idCheck = $_POST["chkDeleteImage"];
 $imagesToAdd = $_FILES["files"];
 date_default_timezone_set('Europe/Zurich');
 
-//var_dump($imagesToAdd["name"]);
-var_dump($idCheck);
+
 
 try {
   $connect = connectToDb();
@@ -20,7 +19,7 @@ try {
     delImageFromIdImage($idCheck[$i]);
   }
 
-  if(isset($imagesToAdd))
+  if($imagesToAdd["size"][0]!=0)
   {
     for($i = 0;$i < count($imagesToAdd["name"]);$i++) {
       $tmpName = $imagesToAdd["tmp_name"][$i];

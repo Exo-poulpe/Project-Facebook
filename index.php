@@ -39,7 +39,7 @@
     </div>
 
     <div class="col-sm-9" >
-      <img src="images/CFPT_ban.png"  alt="Code_image" style="width: 100%;margin-top: 15px;"/><!-- class=" img-fluid w-75"-->
+      <img src="images/CFPT_bann.png"  alt="Code_image" style="width: 100%;margin-top: 15px;"/><!-- class=" img-fluid w-75"-->
     </div>
 
 

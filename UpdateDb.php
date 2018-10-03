@@ -31,8 +31,6 @@ try {
     }
   }
 
-
-
   $connect->commit();
 } catch (\Exception $e) {
   $connect->rollback();

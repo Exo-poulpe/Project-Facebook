@@ -13,7 +13,8 @@ try {
   delImagesFromId($idMsg);
   delMessageFromId($idMsg);
   $connect->commit();
-} catch (Exception $e) {
+}
+catch (Exception $e) {
   $connect->rollback();
 }
 

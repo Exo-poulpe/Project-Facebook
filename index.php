@@ -46,11 +46,6 @@
 
 
   </div>
-  <div class="row ">
-    <input class="col-sm-1 offset-sm-4 btn btn-secondary" type="button" value="Post"/>
-    <input class="col-sm-1 btn btn-secondary " type="button" value="Profil"/>
-    <input class="col-sm-1 btn btn-secondary " type="button" Value="Images" />
-  </div>
   <!--Formulaire-->
   <div class="row" >
     <div class="col-sm-2 border">
@@ -74,7 +69,7 @@
           <br>
           <div class="file-field">
             <div class="btn btn-secondary btn-sm ">
-              <span>Browse File</span>
+              <span>File</span>
               <input type="file" accept="image/*" multiple name="filePictures[]" class="mt-2"/>
             </div>
             <div class="file-path-wrapper">

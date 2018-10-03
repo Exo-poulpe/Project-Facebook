@@ -60,8 +60,6 @@ $connect->commit();
   $connect->rollback();
 }
 
-
-
 function checkFileType($imageName)
 {
   //var_dump($imageName);
@@ -99,7 +97,6 @@ function moveFile($tmpPath,$fileName)
   return $newName;
 }
 
-
 function ResizeImage($tmpFileName,$target_dir)
 {
   $imageSource = imagecreatefromstring(file_get_contents($tmpFileName));
@@ -127,8 +124,8 @@ function ResizeImage($tmpFileName,$target_dir)
       echo "Error";
       break;
   }
-
 }
+
 
 function AddPathToList($listOfImage,$Path)
 {

@@ -15,7 +15,7 @@ $idMsg = $_GET["idMsg"];
 
 <body  style="background-color: #e9ebee;">
 
-  <form action="UpdateDb.php" method="post">
+  <form action="UpdateDb.php" method="post" enctype="multipart/form-data">
     <div class="border border-dark col-sm-10 offset-sm-1 text-center">
     <?php $msg = getMessageFromDb($idMsg);?>
     <textarea rows="5" cols="50" class="mt-3 form-control rounded-0" name="text"><?php print($msg[0]["message"]); ?></textarea>
@@ -43,10 +43,9 @@ $idMsg = $_GET["idMsg"];
 
      ?>
      <br>
-     <input type="file" accept="image/*" multiple name="filePictures[]"/>
+     <input type="file" accept="image/*" multiple name="files[]"/>
      <br>
      <input type="hidden"  value=<?php print("{$idMsg}"); ?> name="idM" />
-     <input type="hidden" value=<?php print("{$images[0]['idImage']}");?> name="idImg"/>
     <input type="submit" value="Valider" class="btn btn-success rounded mt-5 mb-2"/>
   </div>
 </form>

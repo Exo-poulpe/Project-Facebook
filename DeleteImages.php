@@ -19,6 +19,4 @@ try {
 
 header('Location: index.php');
 
-
-
  ?>
